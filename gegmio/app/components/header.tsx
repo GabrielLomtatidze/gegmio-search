@@ -1,0 +1,40 @@
+"use client";
+import { useState } from "react";
+
+export default function Header() {
+
+    const [lang, setLang] = useState("EN");
+
+    return (
+        <>
+            <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-30 ">
+                <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
+                    <a href="/" className="logo">
+                        <img src="/images/logo.png" alt="Gegmio Logo" />
+                    </a>
+                    <div className="w-[390px] h-[42px] flex justify-between">
+                        <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
+                            <img src="/images/heart.png" alt="Gegmio" />
+                        </div>
+                        <div className="w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
+                            <div className="relative w-full h-full bg-[#111] rounded-full flex">
+                                <div className={`absolute top-0 h-full w-1/2 bg-orange-500 rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
+
+                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-gray-400"}`} >
+                                    EN
+                                </button>
+
+                                <button onClick={() => setLang("GE")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "GE" ? "text-white" : "text-gray-400"}`} >
+                                    GE
+                                </button>
+                            </div>
+                        </div>
+                        <button className="w-[214px] h-full bg-[#F94B00] rounded-xl text-white font-bold text-sm">
+                            დაამატე ბიზნესი უფასოდ
+                        </button>
+                    </div>
+                </div>
+            </header>
+        </>
+    )
+}
