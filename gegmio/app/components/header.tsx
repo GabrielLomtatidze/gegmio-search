@@ -16,8 +16,8 @@ export default function Header() {
                         <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
                             <img src="/images/heart.png" alt="Gegmio" />
                         </div>
-                        <div className="w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
-                            <div className="relative w-full h-full bg-[#111] rounded-full flex">
+                        <div className="hidden md:flex  w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
+                            <div className="relative w-full h-full bg-[#111] rounded-full flex ">
                                 <div className={`absolute top-0 h-full w-1/2 bg-orange-500 rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
 
                                 <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-gray-400"}`} >
@@ -29,11 +29,16 @@ export default function Header() {
                                 </button>
                             </div>
                         </div>
-                        <button className="w-[214px] h-full bg-[#F94B00] rounded-xl text-white font-bold text-sm">
+                        <button className="hidden md:block w-[214px] h-full bg-[#F94B00] rounded-xl text-white font-bold text-sm">
                             დაამატე ბიზნესი უფასოდ
                         </button>
+                        <div className="md:hidden">
+                            <img src="/images/burger_bar.png" alt="burger" />
+                        </div>
                     </div>
+
                 </div>
+
             </header>
         </>
     )
