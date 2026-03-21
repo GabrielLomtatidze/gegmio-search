@@ -2,43 +2,46 @@
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Card from "./components/card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { Search } from "lucide-react";
-
+import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
+import debounce from "lodash.debounce";
 
 export default function Home() {
 
-  const [business, setBusiness] = useState<any>();
+  const { businessStore, loading, fetchBusiness } = useBusinessStore();
+
+  
+
   const [countedBusiness, setCountedBusiness] = useState<number>(0);
+  const [search, setSearch] = useState<string>("")
 
-  const getBusiness = async () => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-
-      const params = {
-        // RegionId: regionId,
-        // Latitude: latitude,
-        // Longitude: longitude,
-        // DistrictIds: districtIds.length ? districtIds : undefined,
-      };
-
-      const response = await axios.get("https://bookitcrm.runasp.net/api/v1/public", {
-        params,
-        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
-      });
-
-      setBusiness(response.data?.data || []);
-      setCountedBusiness(response.data.totalItemCount)
-    } catch (error) {
-      console.error("Error fetching business:", error);
-    }
-  };
+  const debouncedFetchBusiness = useMemo(
+    () =>
+      debounce((query: string) => {
+        fetchBusiness({ searchKey: query,});
+      }, 500),
+      
+    [fetchBusiness]
+    
+  );
 
   useEffect(() => {
-    getBusiness()
+    if (search === "") {
+      fetchBusiness({ searchKey: "" });
+      
+      return;
+    }
 
-  }, [])
+    debouncedFetchBusiness(search);
+
+
+    return () => debouncedFetchBusiness.cancel();
+  }, [search]);
+  
+  
+
 
   return (
     <>
@@ -49,7 +52,7 @@ export default function Home() {
           <div className="w-full flex gap-[12px] ">
             <div className="w-[272px] h-[42px] flex items-center bg-[#0f0f0f] px-4 border border-[#2b2b2b] rounded-xl focus-within:border-[#F94B00] transition">
               <Search className="w-5 h-5 text-white mr-3" />
-              <input type="text" placeholder="რას ეძებ?" className="bg-transparent outline-none text-white placeholder-[#a7a7a7] w-full" />
+              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="რას ეძებ?" className="bg-transparent outline-none text-white placeholder-[#a7a7a7] w-full" />
             </div>
             <select id="fruits" className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
               <option value="">ქალაქი</option>
@@ -74,7 +77,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-6 mt-6 mb-6 max-w-7xl mx-auto">
-        {business?.map((item: any) => {
+        {businessStore?.map((item: any) => {
           const distance = item.distance != null ? item.distance.toFixed(1) : null;
           const imageSource = item?.file?.url || "/images/start.svg";
 
