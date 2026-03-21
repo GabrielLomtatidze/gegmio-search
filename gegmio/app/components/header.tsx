@@ -10,11 +10,11 @@ export default function Header() {
             <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-30 ">
                 <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
                     <a href="/" className="logo">
-                        <img src="/images/logo.png" alt="Gegmio Logo" />
+                        <img src="/images/logo.svg" alt="Gegmio Logo" />
                     </a>
                     <div className="w-[390px] h-[42px] flex justify-end items-center gap-2">
                         <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
-                            <img src="/images/heart.png" alt="Gegmio" />
+                            <img src="/images/heart.svg" alt="Gegmio" />
                         </div>
                         <div className="hidden md:flex  w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
                             <div className="relative w-full h-full bg-[#111] rounded-full flex ">
@@ -33,7 +33,7 @@ export default function Header() {
                             დაამატე ბიზნესი უფასოდ
                         </button>
                         <div className="md:hidden">
-                            <img src="/images/burger_bar.png" alt="burger" />
+                            <img src="/images/menu_burger.svg" alt="burger" />
                         </div>
                     </div>
 
