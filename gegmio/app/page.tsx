@@ -14,7 +14,6 @@ export default function Home() {
 
   
 
-  const [countedBusiness, setCountedBusiness] = useState<number>(0);
   const [search, setSearch] = useState<string>("")
 
   const debouncedFetchBusiness = useMemo(
@@ -39,7 +38,11 @@ export default function Home() {
 
     return () => debouncedFetchBusiness.cancel();
   }, [search]);
+
+  const countedBusiness = businessStore.length;
   
+
+
   
 
 
