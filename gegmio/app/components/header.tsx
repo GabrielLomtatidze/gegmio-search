@@ -13,9 +13,9 @@ export default function Header() {
                         <img src="/images/logo.svg" alt="Gegmio Logo" />
                     </a>
                     <div className="w-[390px] h-[42px] flex justify-end items-center gap-2">
-                        <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
+                        {/* <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
                             <img src="/images/heart.svg" alt="Gegmio" />
-                        </div>
+                        </div> */}
                         <div className="hidden md:flex  w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
                             <div className="relative w-full h-full bg-[#111] rounded-full flex ">
                                 <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
