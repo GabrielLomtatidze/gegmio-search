@@ -18,13 +18,13 @@ export default function Header() {
                         </div>
                         <div className="hidden md:flex  w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
                             <div className="relative w-full h-full bg-[#111] rounded-full flex ">
-                                <div className={`absolute top-0 h-full w-1/2 bg-orange-500 rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
+                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
 
-                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-gray-400"}`} >
+                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-[#6C6C6C]"}`} >
                                     EN
                                 </button>
 
-                                <button onClick={() => setLang("GE")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "GE" ? "text-white" : "text-gray-400"}`} >
+                                <button onClick={() => setLang("GE")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "GE" ? "text-white" : "text-[#6C6C6C]"}`} >
                                     GE
                                 </button>
                             </div>
