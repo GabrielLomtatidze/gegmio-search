@@ -43,7 +43,7 @@ export default function Home() {
     <>
       <Header />
       <div className="w-full flex justify-center mt-[20px]">
-        <div className="w-full max-w-7xl md:max-w-4xl px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
+        <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
           <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center md:justify-start">
 
