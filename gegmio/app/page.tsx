@@ -3,7 +3,6 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Card from "./components/card";
 import { useEffect, useState, useMemo } from "react";
-import axios from "axios";
 import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
@@ -12,24 +11,22 @@ export default function Home() {
 
   const { businessStore, loading, fetchBusiness } = useBusinessStore();
 
-  
-
   const [search, setSearch] = useState<string>("")
 
   const debouncedFetchBusiness = useMemo(
     () =>
       debounce((query: string) => {
-        fetchBusiness({ searchKey: query,});
+        fetchBusiness({ searchKey: query, });
       }, 500),
-      
+
     [fetchBusiness]
-    
+
   );
 
   useEffect(() => {
     if (search === "") {
       fetchBusiness({ searchKey: "" });
-      
+
       return;
     }
 
@@ -40,38 +37,49 @@ export default function Home() {
   }, [search]);
 
   const countedBusiness = businessStore.length;
-  
-
-
-  
 
 
   return (
     <>
       <Header />
+      <div className="w-full flex justify-center mt-[20px]">
+        <div className="w-full max-w-7xl md:max-w-4xl px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
-      <div className="w-full h-[42px] flex justify-center mt-[20px]">
-        <div className="w-full h-full max-w-7xl flex">
-          <div className="w-full flex gap-[12px] ">
-            <div className="w-[272px] h-[42px] flex items-center bg-[#0f0f0f] px-4 border border-[#2b2b2b] rounded-xl focus-within:border-[#F94B00] transition">
+          <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center md:justify-start">
+
+            <div className="flex-1 min-w-[180px] h-[42px] flex items-center bg-[#0f0f0f] px-4 border border-[#2b2b2b] rounded-xl focus-within:border-[#F94B00] transition">
               <Search className="w-5 h-5 text-white mr-3" />
-              <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="რას ეძებ?" className="bg-transparent outline-none text-white placeholder-[#a7a7a7] w-full" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="რას ეძებ?"
+                className="bg-transparent outline-none text-white placeholder-[#a7a7a7] w-full"
+              />
             </div>
-            <select id="fruits" className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
-              <option value="">ქალაქი</option>
-              <option value="tbilisi">თბილისი</option>
-              <option value="qutaisi">ქუთაისი</option>
-              <option value="batumi">ბათუმი</option>
-              <option value="ozurgeti">ოზურგეთი</option>
-            </select>
-            <select id="fruits" className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
-              <option value="">შენთან ახლოს</option>
-              <option value="#">შორს</option>
-              <option value="#1">შორიახლოს</option>
-              <option value="#2">ძაან იქით</option>
-            </select>
+
+            <div className="md:hidden w-[44px] h-[42px] bg-[#F94B00] rounded-xl flex justify-center items-center">
+              <img src="/images/filter.svg" alt="filter" className="w-[20px] h-[20px]" />
+            </div>
+
+            <div className="hidden md:flex gap-2">
+              <select className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
+                <option value="">ქალაქი</option>
+                <option value="tbilisi">თბილისი</option>
+                <option value="qutaisi">ქუთაისი</option>
+                <option value="batumi">ბათუმი</option>
+                <option value="ozurgeti">ოზურგეთი</option>
+              </select>
+              <select className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
+                <option value="">შენთან ახლოს</option>
+                <option value="#">შორს</option>
+                <option value="#1">შორიახლოს</option>
+                <option value="#2">ძაან იქით</option>
+              </select>
+            </div>
           </div>
-          <div className="w-[109px] h-[20px] flex justify-center gap-[8px] items-center">
+
+          <div className="flex md:justify-center w-full md:w-[109px] gap-[8px] items-center mt-2 md:mt-0">
             <div className="w-[8px] h-[8px] bg-[#F94B00] rounded-full" />
             <h3 className="text-[16px] text-white font-bold">შედეგი</h3>
             <h3 className="text-[16px] text-[#a7a7a7] font-bold">({countedBusiness})</h3>
