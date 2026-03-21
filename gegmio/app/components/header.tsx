@@ -12,7 +12,7 @@ export default function Header() {
                     <a href="/" className="logo">
                         <img src="/images/logo.png" alt="Gegmio Logo" />
                     </a>
-                    <div className="w-[390px] h-[42px] flex justify-between">
+                    <div className="w-[390px] h-[42px] flex justify-end items-center gap-2">
                         <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
                             <img src="/images/heart.png" alt="Gegmio" />
                         </div>
