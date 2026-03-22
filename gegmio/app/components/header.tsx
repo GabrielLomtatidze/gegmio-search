@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Header() {
 
     const [lang, setLang] = useState("EN");
-    const [openProfileModal, setOpenProfileModal] = useState<boolean>(true);
+    const [openProfileModal, setOpenProfileModal] = useState<boolean>(false);
 
     return (
         <>

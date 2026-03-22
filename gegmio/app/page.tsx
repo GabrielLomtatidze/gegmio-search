@@ -40,7 +40,7 @@ export default function Home() {
 
 
   return (
-    <>
+    <div className="bg-[#0F0F0F]">
       <Header />
       <div className="w-full flex justify-center mt-[20px]">
         <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
@@ -62,7 +62,7 @@ export default function Home() {
               <img src="/images/filter.svg" alt="filter" className="w-[20px] h-[20px]" />
             </div>
 
-            <div className="hidden md:flex gap-2">
+            <div className="hidden md:flex gap-2 text-[#a7a7a7]">
               <select className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
                 <option value="">ქალაქი</option>
                 <option value="tbilisi">თბილისი</option>
@@ -108,6 +108,6 @@ export default function Home() {
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 }
