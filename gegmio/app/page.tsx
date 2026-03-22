@@ -6,6 +6,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -93,17 +94,22 @@ export default function Home() {
           const imageSource = item?.file?.url || "/images/start.svg";
 
           return (
-            <Card
-              key={item.id}
-              businessId={item.id}
-              isFavorite={item.isFavorite}
-              title={item.name}
-              image={imageSource}
-              address={item.addressName}
-              businessCategory={item.businessCategory.name}
-              distance={distance}
-            />
+            <Link key={item.id} href={`/Business/${item.id}`}>
+
+              <Card
+                key={item.id}
+                businessId={item.id}
+                isFavorite={item.isFavorite}
+                title={item.name}
+                image={imageSource}
+                address={item.addressName}
+                businessCategory={item.businessCategory.name}
+                distance={distance}
+              />
+            </Link>
+
           );
+
         })}
       </div>
 
