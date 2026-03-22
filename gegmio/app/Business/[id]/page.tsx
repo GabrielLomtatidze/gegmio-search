@@ -6,6 +6,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
+
 type ProfileDetails = {
     id: string;
     name: string;
@@ -36,11 +37,20 @@ type ProfileDetails = {
 export default function Business() {
     const params = useParams();
     const id = params?.id as string;
+    
 
-    const [businessDetails, setBusinessDetails] =
-        useState<ProfileDetails | null>(null);
+    const [businessDetails, setBusinessDetails] = useState<ProfileDetails | null>(null);
     const [favorite, setFavorite] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+
+    const navItems = [
+        { name: "მენიუ & სერვისები", href: "/" },
+        { name: "შეფასებები", href: "/reviews" },
+        { name: "დეტალები", href: "/details" },
+    ];
+
 
     useEffect(() => {
         if (!id) return;
@@ -204,11 +214,10 @@ export default function Business() {
                                     <img src="/images/fill_linkedin_icon.svg" alt="linkedin" className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </a>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
+                
 
                 <Footer />
             </div>
