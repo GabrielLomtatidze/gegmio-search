@@ -8,7 +8,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-30 ">
+            <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-9999 absolute top-0">
                 <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
                     <a href="/" className="logo">
                         <img src="/images/logo.svg" alt="Gegmio Logo" />
