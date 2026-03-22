@@ -1,9 +1,11 @@
 "use client";
+
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 type ProfileDetails = {
     id: string;
@@ -36,11 +38,10 @@ export default function Business() {
     const params = useParams();
     const id = params?.id as string;
 
-    const [businessDetails, setBusinessDetails] = useState<ProfileDetails | null>(null);
+    const [businessDetails, setBusinessDetails] =
+        useState<ProfileDetails | null>(null);
     const [favorite, setFavorite] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
-
-    const images = businessDetails?.files?.map((f) => f.url) || [];
 
     useEffect(() => {
         if (!id) return;
@@ -64,11 +65,9 @@ export default function Business() {
 
                 setBusinessDetails(data);
                 setFavorite(data.isFavorite);
-                setLoading(false);
-
-                console.log("Fetched business details by ID:", id);
             } catch (error) {
                 console.error("error fetching businessDetails data: ", error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -76,51 +75,67 @@ export default function Business() {
         getBusinessDetails();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p className="text-white text-center mt-10">Loading...</p>;
+    if (!businessDetails)
+        return <p className="text-white text-center mt-10">No data found</p>;
 
-    if (!businessDetails) return <p>No data found</p>;
+    const images = businessDetails.files || [];
 
     return (
         <>
             <Header />
-            <div className="w-full flex justify-center sticky top-0 z-30 ">
-                <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
-                    
+
+            <div className="w-full flex justify-center sticky top-0 z-30 bg-black">
+                <div className="text-white flex justify-between items-center max-w-7xl w-full px-4 py-5 md:px-[100px]">
                     <a href="/">
-                        <div className="h-[42px] flex justify-center items-center  gap-[12px]">
-                            <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center mx-auto cursor-pointer">
-                                <img src="/images/arrow_left.svg" alt="arrow_left" />
+                        <div className="flex items-center gap-3 cursor-pointer">
+                            <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center">
+                                <img src="/images/arrow_left.svg" alt="back" />
                             </div>
                             <h3 className="text-[#a7a7a7]">უკან დაბრუნება</h3>
                         </div>
                     </a>
 
-                    <div className="h-full flex justofy-center items-center gap-[8px]">
-                        <div className="p-2 border-[1px] border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center">
-                            <h4 className="text-white font-bold">1.5 კმ</h4>
-                            <img src="/images/map_pin.svg" alt="map-pin" className="w-[12px] ml-[10px]" />
+                    <div className="flex items-center gap-3">
+                        <div className="px-3 py-2 border border-[#2b2b2b] bg-[#141414] rounded-full flex items-center">
+                            <h4 className="font-bold">1.5 კმ</h4>
+                            <img src="/images/map_pin.svg" alt="map" className="w-[12px] ml-2" />
                         </div>
 
-                        <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
-                            <img src="/images/heart.svg" alt="Gegmio" />
+                        <div onClick={() => setFavorite(!favorite)} className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
+                            <img src={favorite ? "/images/heart_filled.svg" : "/images/heart.svg"} alt="favorite" />
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div className="mt-10 mb-10">
-                <h1>{businessDetails.name}</h1>
-                <p>{businessDetails.description}</p>
-                <p>{businessDetails.businessAddressName}</p>
 
-                <div className="flex gap-2">
-                    {images.map((img, index) => (
-                        <img key={index} src={img} alt="business" className="w-32 h-32 object-cover" />
-                    ))}
+            <div className="max-w-7xl w-full mx-auto px-4 md:px-[100px] py-6">
+                <div className="flex gap-[5px] h-[417px]">
+
+                    <div className="w-1/2 relative">
+                        {images[0] && (
+                            <img src={images[0].url} alt="main" className="w-full h-full object-cover rounded-2xl" />
+                        )}
+                    </div>
+
+                    <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-[5px]">
+                        {images.slice(1, 5).map((img, index) => (
+                            <div key={img.id} className="relative">
+                                <img src={img.url} alt={`img-${index}`} className="w-full h-full object-cover rounded-xl"/>
+
+                                {index === 3 && images.length > 5 && (
+                                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white text-2xl font-bold rounded-xl">
+                                        +{images.length - 5}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
             </div>
+
             <Footer />
         </>
-
     );
 }
