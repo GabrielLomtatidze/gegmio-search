@@ -85,17 +85,20 @@ export default function Business() {
             <Header />
             <div className="w-full flex justify-center sticky top-0 z-30 ">
                 <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
-                    <div className="h-[42px] flex justify-center items-center  gap-[12px]">
-                        <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center mx-auto cursor-pointer">
-                            <img src="/images/arrow_left.svg" alt="arrow_left" />
+                    
+                    <a href="/">
+                        <div className="h-[42px] flex justify-center items-center  gap-[12px]">
+                            <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center mx-auto cursor-pointer">
+                                <img src="/images/arrow_left.svg" alt="arrow_left" />
+                            </div>
+                            <h3 className="text-[#a7a7a7]">უკან დაბრუნება</h3>
                         </div>
-                        <h3 className="text-[#a7a7a7]">უკან დაბრუნება</h3>
-                    </div>
+                    </a>
 
                     <div className="h-full flex justofy-center items-center gap-[8px]">
                         <div className="p-2 border-[1px] border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center">
                             <h4 className="text-white font-bold">1.5 კმ</h4>
-                            <img src="/images/map_pin.svg" alt="map-pin" className="w-[12px] ml-[10px]"/>
+                            <img src="/images/map_pin.svg" alt="map-pin" className="w-[12px] ml-[10px]" />
                         </div>
 
                         <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
