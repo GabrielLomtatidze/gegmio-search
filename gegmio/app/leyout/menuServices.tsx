@@ -134,7 +134,7 @@ export default function MenuService() {
                         <FaChevronRight size={14} color={canScroll.right ? "white" : "#A7A7A7"} />
                     </div>
                 </div>
-            </div>
+            </div>``
 
             <div className="w-full mt-[20px] rounded-xl flex flex-wrap gap-[24px]">
                 {menu?.map((item: Menu) => (
@@ -143,7 +143,7 @@ export default function MenuService() {
                         name={item.name}
                         durationInMinutes={item.durationInMinutes}
                         price={item.price}
-                        img={item?.file?.url}
+                        img={item?.file?.url ? item?.file?.url : "/images/test.svg"}
                     />
                 ))}
             </div>
