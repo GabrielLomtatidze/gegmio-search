@@ -8,6 +8,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { Spinner } from "@/components/ui/spinner";
 import { motion } from "framer-motion";
 import MenuService from "@/app/leyout/menuServices";
+import Reviews from "@/app/leyout/reviews";
 import dynamic from "next/dynamic";
 
 
@@ -51,9 +52,9 @@ export default function Business() {
 
 
     const navItems = [
-        { id: 0, name: "მენიუ & სერვისები", href: "/" },
-        { id: 1, name: "შეფასებები", href: "/reviews" },
-        { id: 2, name: "დეტალები", href: "/details" },
+        { id: 0, name: "მენიუ & სერვისები", },
+        { id: 1, name: "შეფასებები", },
+        { id: 2, name: "დეტალები", },
     ];
 
 
@@ -243,7 +244,7 @@ export default function Business() {
 
                     <div>
                         {selectedNavId === 0 ? <MenuService /> :
-                            selectedNavId === 1 ? "" :
+                            selectedNavId === 1 ? <Reviews /> :
                                 selectedNavId === 2 ? "" :
                                     ""}
                     </div>
