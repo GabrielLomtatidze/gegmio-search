@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { Spinner } from "@/components/ui/spinner";
 
 
 type ProfileDetails = {
@@ -84,7 +85,7 @@ export default function Business() {
         getBusinessDetails();
     }, [id]);
 
-    if (loading) return <p className="text-white text-center mt-10">Loading...</p>;
+    if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#0F0F0F]">{<Spinner color="#F94B00"/>}</div>;
     if (!businessDetails)
         return <p className="text-white text-center mt-10">No data found</p>;
 
