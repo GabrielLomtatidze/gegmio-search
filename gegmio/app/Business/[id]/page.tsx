@@ -6,6 +6,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { Spinner } from "@/components/ui/spinner";
+import { motion } from "framer-motion";
 
 
 type ProfileDetails = {
@@ -38,18 +39,20 @@ type ProfileDetails = {
 export default function Business() {
     const params = useParams();
     const id = params?.id as string;
-    
+
 
     const [businessDetails, setBusinessDetails] = useState<ProfileDetails | null>(null);
     const [favorite, setFavorite] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const [selectedNavId, setSelectedNavId] = useState<number | null>(0);
+
 
 
     const navItems = [
-        { name: "მენიუ & სერვისები", href: "/" },
-        { name: "შეფასებები", href: "/reviews" },
-        { name: "დეტალები", href: "/details" },
+        { id: 0, name: "მენიუ & სერვისები", href: "/" },
+        { id: 1, name: "შეფასებები", href: "/reviews" },
+        { id: 2, name: "დეტალები", href: "/details" },
     ];
 
 
@@ -85,7 +88,7 @@ export default function Business() {
         getBusinessDetails();
     }, [id]);
 
-    if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#0F0F0F]">{<Spinner color="#F94B00"/>}</div>;
+    if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#0F0F0F]">{<Spinner color="#F94B00" />}</div>;
     if (!businessDetails)
         return <p className="text-white text-center mt-10">No data found</p>;
 
@@ -218,7 +221,27 @@ export default function Business() {
                         </div>
                     </div>
                 </div>
-                
+
+                <div className="max-w-7xl w-full mx-auto px-4 md:px-[100px] mb-[20px]">
+                    <div className="flex gap-[24px] relative border-b border-[#2b2b2b]">
+                        {navItems.map((item) => (
+                            <div key={item.id} className="relative cursor-pointer py-2" onClick={() => setSelectedNavId(item.id)} >
+                                <h2 style={{ color: selectedNavId === item.id ? "#F94B00" : "#a7a7a7", }} >
+                                    {item.name}
+                                </h2>
+                                {selectedNavId === item.id && (
+                                    <motion.div
+                                        layoutId="underline"
+                                        className="absolute left-0 bottom-0 h-[2px] w-full bg-[#F94B00]"
+                                        transition={{ type: "spring", stiffness: 500, damping: 50, }}
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    
+                </div>
 
                 <Footer />
             </div>
