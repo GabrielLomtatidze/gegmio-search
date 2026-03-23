@@ -1,7 +1,7 @@
 "use client";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Card from "./components/card";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Card from "../components/card";
 import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
@@ -44,7 +44,8 @@ export default function Home() {
   return (
     <div className="bg-[#0F0F0F]">
       <Header />
-      {/* <div className="w-full flex justify-center mt-[20px]">
+      
+      <div className="w-full flex justify-center mt-[20px]">
         <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
           <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center md:justify-start">
@@ -112,9 +113,8 @@ export default function Home() {
           );
 
         })}
-      </div> */}
+      </div>
 
-      <ErrorPage />
 
       <Footer />
     </div>

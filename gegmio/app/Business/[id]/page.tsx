@@ -1,6 +1,6 @@
 "use client";
-import Header from "@/app/components/header";
-import Footer from "@/app/components/footer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -179,7 +179,7 @@ export default function Business() {
                             <a href="tel:+995555777777">
                                 <button className="flex bg-[#00D34D] px-[16px] py-[12px] rounded-xl justify-center items-center gap-[8px] cursor-pointer">
                                     <img src="/images/call.svg" alt="call" />
-                                    <h3 className="font-bold">+995 555 777 777</h3>
+                                    <h3 className="font-bold text-white">+995 555 777 777</h3>
                                 </button>
                             </a>
                         </div>
