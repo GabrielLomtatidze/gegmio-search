@@ -1,7 +1,7 @@
 "use client";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Card from "../components/card";
+import Card from "../components/cards/card";
 import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";

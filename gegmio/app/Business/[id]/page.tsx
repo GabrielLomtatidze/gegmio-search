@@ -7,6 +7,8 @@ import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { Spinner } from "@/components/ui/spinner";
 import { motion } from "framer-motion";
+import MenuService from "@/app/leyout/menuServices";
+import dynamic from "next/dynamic";
 
 
 type ProfileDetails = {
@@ -46,7 +48,6 @@ export default function Business() {
     const [loading, setLoading] = useState<boolean>(true);
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const [selectedNavId, setSelectedNavId] = useState<number | null>(0);
-
 
 
     const navItems = [
@@ -240,7 +241,12 @@ export default function Business() {
                         ))}
                     </div>
 
-                    
+                    <div>
+                        {selectedNavId === 0 ? <MenuService /> :
+                            selectedNavId === 1 ? "" :
+                                selectedNavId === 2 ? "" :
+                                    ""}
+                    </div>
                 </div>
 
                 <Footer />
