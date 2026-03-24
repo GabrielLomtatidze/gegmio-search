@@ -96,6 +96,8 @@ export default function Business() {
 
     const images = businessDetails.files || [];
 
+    const rating = 3.5;
+
     return (
         <>
             <div className="bg-[#0F0F0F]">
@@ -159,18 +161,21 @@ export default function Business() {
 
                 </div>
 
-                <div className="max-w-7xl w-full mx-auto mb-[20px] px-4 md:px-[100px] ">
-                    <div className="h-[100px]">
-                        <div className="w-full h-[43px] flex justify-between items-center">
+                <div className="max-w-7xl w-full mx-auto mb-[20px] px-4 md:px-[100px]">
+                    <div className="w-full">
 
-                            <div className="flex h-full gap-2 items-center">
-                                <h1 className="text-[26px] text-white font-bold">
+                        {/* TOP SECTION */}
+                        <div className="flex flex-col [@media(min-width:850px)]:flex-row justify-between items-start [@media(min-width:850px)]:items-center gap-4">
+
+                            {/* LEFT SIDE */}
+                            <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+                                <h1 className="text-[22px] sm:text-[26px] text-white font-bold">
                                     {businessDetails.name}
                                 </h1>
 
+                                {/* RATING */}
                                 <div className="flex gap-1 items-center">
                                     {[1, 2, 3, 4, 5].map((i) => {
-                                        const rating = 3.5;
                                         if (rating >= i) {
                                             return <FaStar key={i} className="text-[#FFB83F]" />;
                                         } else if (rating >= i - 0.5) {
@@ -182,43 +187,96 @@ export default function Business() {
                                 </div>
                             </div>
 
-                            <a href="tel:+995555777777">
-                                <button className="flex bg-[#00D34D] px-[16px] py-[12px] rounded-xl justify-center items-center gap-[8px] cursor-pointer">
+                            {/* CALL BUTTON */}
+                            <a href="tel:+995555777777" className="w-full sm:w-auto">
+                                <button className="w-full sm:w-auto flex bg-[#00D34D] px-[16px] py-[12px] rounded-xl justify-center items-center gap-[8px] cursor-pointer">
                                     <img src="/images/call.svg" alt="call" />
                                     <h3 className="font-bold text-white">+995 555 777 777</h3>
                                 </button>
                             </a>
                         </div>
 
-                        <div className="w-full h-[42px] flex justify-between items-center mt-[16px]">
+                        {/* BOTTOM SECTION */}
+                        <div className="flex flex-col [@media(min-width:850px)]:flex-row justify-between items-start [@media(min-width:850px)]:items-center mt-[16px] gap-4">
 
-                            <div className="h-[42px] flex justify-center items-center gap-[12px]">
+                            {/* INFO BLOCKS */}
+                            <div className="flex flex-col sm:flex-row gap-[12px] w-full">
 
-                                <div className="flex max-h-[42px] px-[16px] py-[12px] max-w-[359px] border border-[#2b2b2b] rounded-xl items-center gap-[4px] overflow-hidden">
+                                {/* ADDRESS */}
+                                <div className="flex px-[16px] py-[12px] w-full sm:max-w-[359px] border border-[#2b2b2b] rounded-xl items-center gap-[6px] overflow-hidden">
                                     <img src="/images/map_pin.svg" alt="map_pin" className="w-[12px] shrink-0" />
-                                    <h3 className="text-[#a7a7a7] text-[14px] truncate">ქ.თბილისის,შალვა დადიანის 99 ა</h3>
-                                    <img src="/images/arrow_right.svg" alt="arrow_right" className="relative left-[10px] shrink-0" />
+                                    <h3 className="text-[#a7a7a7] text-[14px] truncate">
+                                        ქ.თბილისის, შალვა დადიანის 99 ა
+                                    </h3>
+                                    <img src="/images/arrow_right.svg" alt="arrow_right" className="ml-auto shrink-0" />
                                 </div>
 
-                                <div className="flex max-h-[42px] px-[16px] py-[12px] max-w-[216px] border border-[#2b2b2b] rounded-xl items-center gap-[4px] overflow-hidden">
-                                    <img src="/images/qisa.svg" alt="map_pin" className="w-[16px] shrink-0" />
-                                    <h3 className="text-[#a7a7a7] text-[14px] truncate">პერსონაზე - <span className="text-white font-bold">45 ლარი +</span></h3>
+                                {/* PRICE */}
+                                <div className="flex px-[16px] py-[12px] w-full sm:max-w-[216px] border border-[#2b2b2b] rounded-xl items-center gap-[6px] overflow-hidden">
+                                    <img src="/images/qisa.svg" alt="price" className="w-[16px] shrink-0" />
+                                    <h3 className="text-[#a7a7a7] text-[14px] truncate">
+                                        პერსონაზე -{" "}
+                                        <span className="text-white font-bold">45 ლარი +</span>
+                                    </h3>
                                 </div>
                             </div>
 
-                            <div className="h-[42px] flex gap-5">
-                                <a href="https://www.facebook.com/profile.php?id=61583853083725" target="_blank" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
-                                    <img src="/images/facebook-big.svg" alt="Facebook" className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                                    <img src="/images/fill_facebook_icon.svg" alt="Facebook Hover" className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            {/* SOCIAL ICONS */}
+                            <div className="flex gap-5">
+
+                                {/* FACEBOOK */}
+                                <a
+                                    href="https://www.facebook.com/profile.php?id=61583853083725"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden"
+                                >
+                                    <img
+                                        src="/images/facebook-big.svg"
+                                        alt="Facebook"
+                                        className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                                    />
+                                    <img
+                                        src="/images/fill_facebook_icon.svg"
+                                        alt="Facebook Hover"
+                                        className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    />
                                 </a>
-                                <a href="#" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
-                                    <img src="/images/tiktok-big.svg" alt="tiktok" className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                                    <img src="/images/fill_tiktok_icon.svg" alt="tiktok" className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                {/* TIKTOK */}
+                                <a
+                                    href="#"
+                                    className="group w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden"
+                                >
+                                    <img
+                                        src="/images/tiktok-big.svg"
+                                        alt="tiktok"
+                                        className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                                    />
+                                    <img
+                                        src="/images/fill_tiktok_icon.svg"
+                                        alt="tiktok"
+                                        className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    />
                                 </a>
-                                <a href="#" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
-                                    <img src="/images/Linkedin.svg" alt="linkedin" className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                                    <img src="/images/fill_linkedin_icon.svg" alt="linkedin" className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                {/* LINKEDIN */}
+                                <a
+                                    href="#"
+                                    className="group w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden"
+                                >
+                                    <img
+                                        src="/images/Linkedin.svg"
+                                        alt="linkedin"
+                                        className="absolute opacity-100 group-hover:opacity-0 transition-opacity duration-300"
+                                    />
+                                    <img
+                                        src="/images/fill_linkedin_icon.svg"
+                                        alt="linkedin"
+                                        className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    />
                                 </a>
+
                             </div>
                         </div>
                     </div>

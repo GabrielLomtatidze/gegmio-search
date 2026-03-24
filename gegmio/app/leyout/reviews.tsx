@@ -15,7 +15,7 @@ export default function ReviewSection() {
     }));
 
     return (
-        <div className="w-full mt-[30px] mb-[100px] flex flex-wrap gap-[12px] px-[12px]">
+        <div className="w-full mt-[30px] mb-[100px] flex flex-wrap gap-[12px] px-[12px] justify-cenmter items-center">
             {reviews.map((item) => (
                 <ReviewCard
                     key={item.id}
