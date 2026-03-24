@@ -8,9 +8,8 @@ export default function ReviewSection() {
         id: i,
         name: "ირაკლი ბერიძე",
         date: "13 მარტი - 2025",
-        review:
-            "რესტორანი საკმაოდ დაფუძნდა 2013 წელს, ჩვენ გთავაზობთ საუკეთესო ხარისხის რესტორანულ მომსახურებას",
-        rating: (Math.random() * 5).toFixed(1), // random rating
+        review: "რესტორანი საკმაოდ დაფუძნდა 2013 წელს, ჩვენ გთავაზობთ საუკეთესო ხარისხის რესტორანულ მომსახურებას",
+        rating: (Math.random() * 5).toFixed(1),
         avatar: "/images/test.svg",
     }));
 

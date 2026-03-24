@@ -39,7 +39,6 @@ export default function MenuService() {
     const [selectedFilterId, setSelectedFilterId] = useState<number | null>(filterText[0]?.id);
     const [menu, setMenu] = useState<Menu[]>();
 
-    console.log(filterText)
     const updateScrollButtons = () => {
         const container = containerRef.current;
         if (!container) return;
