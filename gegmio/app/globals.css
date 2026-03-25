@@ -24,3 +24,56 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("/fonts/FiraGO-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: "FiraGO", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media screen and (max-width: 420px) {
+  .landing_left_side-downloads {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+::selection{
+  background-color: #F94B00;
+  color: white;
+}

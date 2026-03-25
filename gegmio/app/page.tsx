@@ -8,6 +8,7 @@ import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
 import Link from "next/link";
 import ErrorPage from "./leyout/errorPage";
+import Registration from "./Auth/layout";
 
 export default function Home() {
 
@@ -118,5 +119,7 @@ export default function Home() {
 
       <Footer />
     </div>
+
+    
   );
 }
