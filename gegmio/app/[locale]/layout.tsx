@@ -1,8 +1,7 @@
+// app/[locale]/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-
+import { NextIntlClientProvider } from "next-intl";
 
 export const metadata: Metadata = {
   title: "Gegmio",
@@ -13,17 +12,19 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const { locale } = await params;
+
   return (
-    <html lang={params.locale}>
+    <html lang={locale}>
       <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider locale={params.locale}>
+        <NextIntlClientProvider locale={locale}>
           {children}
         </NextIntlClientProvider>
       </body>
