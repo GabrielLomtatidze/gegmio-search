@@ -6,6 +6,7 @@ import axios from "axios";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/zustand/User/authStore";
+import { redirect } from "next/navigation"
 
 type Gender = {
   id: number;
@@ -24,6 +25,7 @@ type Errors = {
 };
 
 export default function RegistrationPage() {
+
   const t = useTranslations();
   const router = useRouter();
   const { setUserEmail, setUserPassword } = useAuthStore()

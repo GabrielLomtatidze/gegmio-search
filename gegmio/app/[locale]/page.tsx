@@ -7,14 +7,24 @@ import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
 import Link from "next/link";
-import ErrorPage from "./leyout/404";
-import Registration from "./auth/layout";
+import { useRouter, useParams } from "next/navigation";
 
 export default function Home() {
 
+  const router = useRouter();
+  const params = useParams();
+  const locale = params.locale;
   const { businessStore, loading, fetchBusiness } = useBusinessStore();
 
-  const [search, setSearch] = useState<string>("")
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      router.replace(`/${locale}/auth/login`);
+    }
+  }, [locale, router]);
 
   const debouncedFetchBusiness = useMemo(
     () =>
@@ -120,7 +130,6 @@ export default function Home() {
       <Footer />
     </div>
 
-    // <Registration />
-    
+
   );
 }

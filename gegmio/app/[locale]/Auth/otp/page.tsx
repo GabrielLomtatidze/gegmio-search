@@ -49,7 +49,7 @@ export default function Otp() {
             }
 
             clear();
-            router.replace("/(tabs)/home");
+            router.replace("/");
 
         } catch (err: any) {
             setErrors({ ...errors, valid: err?.response?.data?.detail || "Error OTP verification" });
