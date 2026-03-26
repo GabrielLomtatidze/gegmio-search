@@ -8,6 +8,7 @@ import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
+import Profile from "./page/profile/page";
 
 export default function Home() {
 
@@ -22,7 +23,7 @@ export default function Home() {
     const token = localStorage.getItem("accessToken");
 
     if (!token) {
-      router.replace(`/${locale}/auth/login`);
+      // router.replace(`/${locale}/auth/login`);
     }
   }, [locale, router]);
 
@@ -53,10 +54,10 @@ export default function Home() {
 
 
   return (
-    <div className="bg-[#0F0F0F]">
+    <div className="bg-[#0F0F0F] min-h-screen">
       <Header />
 
-      <div className="w-full flex justify-center mt-[20px]">
+      {/* <div className="w-full flex justify-center mt-[20px]">
         <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
           <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center md:justify-start">
@@ -124,7 +125,9 @@ export default function Home() {
           );
 
         })}
-      </div>
+      </div> */}
+
+      <Profile />
 
 
       <Footer />
