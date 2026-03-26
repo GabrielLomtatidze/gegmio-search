@@ -110,6 +110,8 @@ export default function RegistrationPage() {
           password
         })
 
+        console.log("aaaaaaaaa");
+        
 
       } catch (error: any) {
 

@@ -1,4 +1,4 @@
-import RegistrationPage from "@/app/Auth/registration/page";
+import RegistrationPage from "@/app/[locale]/Auth/registration/page";
 import Login from "./login/page";
 
 export default function Registration() {
@@ -8,8 +8,8 @@ export default function Registration() {
         <>
             <div className="min-h-screen bg-[url('/images/gegmio_background.svg')] bg-cover bg-center bg-no-repeat flex justify-center items-center">
 
-                <Login />
-                {/* <RegistrationPage /> */}
+                {/* <Login /> */}
+                <RegistrationPage />
 
             </div>
 

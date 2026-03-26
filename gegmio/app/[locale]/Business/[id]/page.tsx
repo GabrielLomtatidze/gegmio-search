@@ -6,11 +6,11 @@ import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { Spinner } from "@/components/ui/spinner";
 import { motion } from "framer-motion";
-import MenuService from "@/app/leyout/menuServices";
-import Reviews from "@/app/leyout/reviews";
-import Details from "@/app/leyout/details";
+import MenuService from "@/app/[locale]/leyout/menuServices";
+import Reviews from "@/app/[locale]/leyout/reviews";
+import Details from "@/app/[locale]/leyout/details";
 import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId";
-import ErrorPage from "@/app/leyout/errorPage";
+import ErrorPage from "@/app/[locale]/leyout/errorPage";
 
 export default function Business() {
 
