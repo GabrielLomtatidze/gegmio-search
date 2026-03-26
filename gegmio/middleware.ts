@@ -1,8 +1,8 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18/routing";
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
 
-export default createMiddleware(routing)
+export default createMiddleware(routing);
 
-export const confg = {
-    matcher: "/((?!api|tpc|_next|_vercel|.*..*).*)"
-}
+export const config = {
+  matcher: ['/((?!api|_next|.*\\..*).*)']
+};
