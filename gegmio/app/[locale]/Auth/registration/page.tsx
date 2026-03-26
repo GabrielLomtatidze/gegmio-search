@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 // 47
 
@@ -14,6 +15,8 @@ type Errors = {
 }
 
 export default function RegistrationPage() {
+
+  const t = useTranslations();
 
   const [showPass, setShowPass] = useState<boolean>(false);
   const [showRepeatPass, setShowRepeatPass] = useState<boolean>(false);
@@ -52,7 +55,7 @@ export default function RegistrationPage() {
 
    
     if (!email || email.trim().length < 5) {
-      // newErrors.email = t("auth.errors.valid_email");
+      newErrors.email = t("auth.errors.valid_email");
     } else if (!email.includes("@")) {
       // newErrors.email = t("auth.errors.valid_email");
     } else if (!email.includes(".")) {
@@ -143,7 +146,7 @@ export default function RegistrationPage() {
       <div className="w-[376px] h-[726px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white">
 
         <h1 className="text-center text-[20px] font-semibold">
-          შექმენი პროფილი
+          {t("auth.create_profile")}
         </h1>
 
         <p className="text-center text-sm text-gray-400 mt-1 mb-6">
