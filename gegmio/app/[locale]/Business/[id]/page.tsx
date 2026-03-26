@@ -10,7 +10,7 @@ import MenuService from "@/app/[locale]/leyout/menuServices";
 import Reviews from "@/app/[locale]/leyout/reviews";
 import Details from "@/app/[locale]/leyout/details";
 import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId";
-import ErrorPage from "@/app/[locale]/leyout/errorPage";
+import ErrorPage from "@/app/[locale]/leyout/404";
 
 export default function Business() {
 

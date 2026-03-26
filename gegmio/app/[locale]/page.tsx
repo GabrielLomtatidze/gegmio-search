@@ -7,8 +7,8 @@ import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
 import Link from "next/link";
-import ErrorPage from "./leyout/errorPage";
-import Registration from "./Auth/layout";
+import ErrorPage from "./leyout/404";
+import Registration from "./auth/layout";
 
 export default function Home() {
 
