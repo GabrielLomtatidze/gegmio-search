@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
 import { useState } from "react";
@@ -60,6 +61,19 @@ export default function Otp() {
 
     return (
         <div className="w-[376px] h-[302px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white flex flex-col items-center justify-between">
+=======
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import { useState } from "react";
+
+export default function Otp() {
+
+    const [otp, setOtp] = useState<string>("")
+
+
+    return (
+        <div className="w-[376px] h-[302px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white flex flex-col items-center justify-between">
+
+>>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
             <div className="text-center space-y-2">
                 <h2 className="text-xl font-semibold">ვერიფიკაცია</h2>
                 <p className="text-[12px] text-[#a7a7a7]">
@@ -73,7 +87,11 @@ export default function Otp() {
                         <InputOTPSlot
                             key={i}
                             index={i}
+<<<<<<< HEAD
                             className="w-10 h-12 rounded-lg text-lg border border-[#2B2B2B] bg-transparent text-white outline-none focus:ring-0 data-[active=true]:border-[#F94B00] data-[active=true]:bg-[#F94B00]/10 data-[filled=true]:bg-[#F94B00]/20 data-[filled=true]:text-white" />
+=======
+                            className="w-10 h-12 rounded-lg text-lg transition-all border border-[#2B2B2B] bg-transparent text-white outline-none focus:ring-0 data-[active=true]:border-[#F94B00] data-[active=true]:bg-[#F94B00]/10 data-[filled=true]:bg-[#F94B00]/20 data-[filled=true]:text-white" />
+>>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
                     ))}
                 </InputOTPGroup>
 
@@ -84,11 +102,16 @@ export default function Otp() {
                         <InputOTPSlot
                             key={i}
                             index={i}
+<<<<<<< HEAD
                             className="w-10 h-12 rounded-lg text-lg border border-[#2B2B2B] bg-transparent text-white outline-none focus:ring-0 data-[active=true]:border-[#F94B00] data-[active=true]:bg-[#F94B00]/10 data-[filled=true]:bg-[#F94B00]/20 data-[filled=true]:text-white" />
+=======
+                            className="w-10 h-12 rounded-lg text-lg transition-all border border-[#2B2B2B] bg-transparent text-white outline-none focus:ring-0 data-[active=true]:border-[#F94B00] data-[active=true]:bg-[#F94B00]/10 data-[filled=true]:bg-[#F94B00]/20 data-[filled=true]:text-white"/>
+>>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
                     ))}
                 </InputOTPGroup>
             </InputOTP>
 
+<<<<<<< HEAD
             <button
                 className="w-full h-12 rounded-xl bg-[#F94B00] transition font-medium cursor-pointer"
                 onClick={finish}
@@ -99,6 +122,12 @@ export default function Otp() {
             {errors.count && <p className="text-red-500 text-sm">{errors.count}</p>}
             {errors.valid && <p className="text-red-500 text-sm">{errors.valid}</p>}
 
+=======
+            <button className="w-full h-12 rounded-xl bg-[#F94B00] transition font-medium cursor-pointer">
+                რეგისტრაცია
+            </button>
+
+>>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
             <p className="text-[14px] text-white">
                 არ მოვიდა კოდი?{" "}
                 <span className="text-[#F94B00] cursor-pointer hover:underline">
@@ -106,5 +135,9 @@ export default function Otp() {
                 </span>
             </p>
         </div>
+<<<<<<< HEAD
     );
+=======
+    )
+>>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
 }

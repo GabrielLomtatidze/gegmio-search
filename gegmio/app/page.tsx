@@ -1,14 +1,12 @@
 "use client";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import Card from "../../components/cards/card";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Card from "../components/cards/card";
 import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import debounce from "lodash.debounce";
 import Link from "next/link";
-import ErrorPage from "./leyout/404";
-import Registration from "./auth/layout";
 
 export default function Home() {
 
@@ -45,7 +43,7 @@ export default function Home() {
   return (
     <div className="bg-[#0F0F0F]">
       <Header />
-
+      
       <div className="w-full flex justify-center mt-[20px]">
         <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
@@ -120,7 +118,6 @@ export default function Home() {
       <Footer />
     </div>
 
-    // <Registration />
     
   );
 }
