@@ -166,11 +166,8 @@ export default function RegistrationPage() {
         }
       );
 
-<<<<<<< HEAD
       setUserEmail(email);
       setUserPassword(password);
-=======
->>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
       router.push("/auth/otp");
     } catch (error: any) {
       if (error.response?.data?.detail) {
@@ -195,11 +192,7 @@ export default function RegistrationPage() {
       </p>
 
       <form className="flex flex-col gap-4" onSubmit={sendUserData}>
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 11b5b728c13906a32e28cfb04e6951391486ff96
         <div>
           <label className="text-sm mb-1 block">სახელი</label>
           <input
