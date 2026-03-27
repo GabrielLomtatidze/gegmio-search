@@ -57,7 +57,7 @@ export default function Home() {
     <div className="bg-[#0F0F0F] min-h-screen">
       <Header />
 
-      {/* <div className="w-full flex justify-center mt-[20px]">
+      <div className="w-full flex justify-center mt-[20px]">
         <div className="w-full max-w-7xl  px-4 md:px-[100px] flex flex-col md:flex-row md:justify-between gap-3">
 
           <div className="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto justify-center md:justify-start">
@@ -125,9 +125,9 @@ export default function Home() {
           );
 
         })}
-      </div> */}
+      </div>
 
-      <Profile />
+      {/* <Profile /> */}
 
 
       <Footer />

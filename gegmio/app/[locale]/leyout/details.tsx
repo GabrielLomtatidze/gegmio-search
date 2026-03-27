@@ -5,6 +5,8 @@ export default function Details() {
 
     const { business } = useBusinessStoreId();
 
+    const formatTime = (time:any) => time?.slice(0, 5);
+    
     return (
         <>
             <div className="w-full mt-[30px] mb-[100px] flex flex-col lg:flex-row gap-[24px] justify-between">
@@ -15,13 +17,14 @@ export default function Details() {
                     </div>
                     <div>
                         {business?.businessBookingTime?.map((item, index) => (
+                            
                             <div key={index} className="w-full h-[48px] flex justify-between py-[12px] items-center border-t-[1px] border-[#2b2b2b]">
                                 <div className="gap-[8px] flex items-center">
                                     <img src="/images/clock.svg" alt="clock" />
-                                    <h4 className="font-bold">{item.name}</h4>
+                                    <h4 className="font-bold text-white">{item.name}</h4>
                                 </div>
-                                <h4>
-                                    {item.bookingStartTime} - {item.bookingEndTime}
+                                <h4 className="text-white">
+                                    {formatTime(item.bookingStartTime)} - {formatTime(item.bookingEndTime)}
                                 </h4>
                             </div>
                         ))}
@@ -34,7 +37,7 @@ export default function Details() {
                     </div>
                     <div className="w-full h-[48px] flex gap-[8px] py-[12px] items-center">
                         <img src="/images/call.svg" alt="call" />
-                        <h4 className="font-bold">+995 555 888 999</h4>
+                        <h4 className="font-bold text-white">+995 555 888 999</h4>
                     </div>
                     <div className="w-full h-[48px] flex gap-[8px] py-[12px] items-center border-t-[1px] border-[#2b2b2b]">
                         <img src="/images/map_pin.svg" alt="map_pin" className="w-[12px]" />
