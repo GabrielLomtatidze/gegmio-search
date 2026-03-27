@@ -1,11 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUserStore } from "@/zustand/User/profileStore";
+
 
 export default function Header() {
+
+    const { userInfo, fetchUserInfo } = useUserStore();
 
     const [lang, setLang] = useState("EN");
     const [openProfileModal, setOpenProfileModal] = useState<boolean>(false);
 
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
+
+    const userInitial = userInfo?.firstName?.[0].toUpperCase();
+    
+    
     return (
         <>
             <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-9999 absolute top-0">
@@ -37,9 +48,9 @@ export default function Header() {
                         <div className="relative hidden md:block">
                             <div className="px-[12px] py-[8px] border-[1px] border-[#2b2b2b] flex justify-center items-center rounded-xl gap-[8px] cursor-pointer" onClick={() => setOpenProfileModal(!openProfileModal)} >
                                 <div className="w-[28px] h-[28px] bg-[#242424] rounded-full flex justify-center items-center">
-                                    s
+                                    {userInitial}
                                 </div>
-                                <h3 className="font-bold">shmagi</h3>
+                                <h3 className="font-bold">{userInfo?.firstName}</h3>
                                 <img src="/images/arrow_down.svg" alt="arrow_down" />
                             </div>
 
@@ -51,8 +62,8 @@ export default function Header() {
                                             I
                                         </div>
                                         <div className="min-w-0">
-                                            <p className="text-white text-sm font-medium truncate">Shmagi</p>
-                                            <p className="text-[#9CA3AF] text-xs truncate">shmagi23@gmail.com</p>
+                                            <p className="text-white text-sm font-medium truncate">{userInfo?.lastName}</p>
+                                            <p className="text-[#9CA3AF] text-xs truncate">{userInfo?.email}</p>
                                         </div>
                                     </div>
 
@@ -74,7 +85,7 @@ export default function Header() {
 
                                     <div className="mt-2">
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition w-full cursor-pointer">
-                                             <img src="/images/log_out.svg" alt="logout" />
+                                            <img src="/images/log_out.svg" alt="logout" />
                                             <span className="text-[#FF2A2A] text-sm font-bold">გასვლა</span>
                                         </button>
                                     </div>

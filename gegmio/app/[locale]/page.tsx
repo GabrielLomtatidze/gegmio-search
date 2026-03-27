@@ -23,7 +23,7 @@ export default function Home() {
     const token = localStorage.getItem("accessToken");
 
     if (!token) {
-      // router.replace(`/${locale}/auth/login`);
+      router.replace(`/${locale}/auth/login`);
     }
   }, [locale, router]);
 
@@ -43,10 +43,7 @@ export default function Home() {
 
       return;
     }
-
     debouncedFetchBusiness(search);
-
-
     return () => debouncedFetchBusiness.cancel();
   }, [search]);
 
