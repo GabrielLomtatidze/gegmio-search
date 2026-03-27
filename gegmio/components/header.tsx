@@ -15,8 +15,14 @@ export default function Header() {
     }, []);
 
     const userInitial = userInfo?.firstName?.[0].toUpperCase();
-    
-    
+
+
+    const logOut = (): void => {
+        localStorage.removeItem("accessToken");
+        window.location.reload();
+    };
+
+
     return (
         <>
             <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-9999 absolute top-0">
@@ -84,7 +90,7 @@ export default function Header() {
                                     </div>
 
                                     <div className="mt-2">
-                                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition w-full cursor-pointer">
+                                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition w-full cursor-pointer" onClick={logOut}>
                                             <img src="/images/log_out.svg" alt="logout" />
                                             <span className="text-[#FF2A2A] text-sm font-bold">გასვლა</span>
                                         </button>
