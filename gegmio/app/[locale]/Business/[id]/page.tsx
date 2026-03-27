@@ -6,9 +6,9 @@ import { useParams } from "next/navigation";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { Spinner } from "@/components/ui/spinner";
 import { motion } from "framer-motion";
-import MenuService from "@/app/[locale]/leyout/menuServices";
-import Reviews from "@/app/[locale]/leyout/reviews";
-import Details from "@/app/[locale]/leyout/details";
+import MenuService from "@/app/[locale]/layout/menuServices";
+import Reviews from "@/app/[locale]/layout/reviews";
+import Details from "@/app/[locale]/layout/details";
 import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId";
 import ErrorPage from "@/app/[locale]/page/404";
 
