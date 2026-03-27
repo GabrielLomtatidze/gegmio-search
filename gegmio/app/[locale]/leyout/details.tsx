@@ -4,6 +4,8 @@ import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId"
 export default function Details() {
 
     const { business } = useBusinessStoreId();
+    
+    console.log(business)
 
     const formatTime = (time:any) => time?.slice(0, 5);
     
@@ -46,7 +48,7 @@ export default function Details() {
                     <div className="w-full py-[12px] border-t-[1px] border-[#2b2b2b]">
                         <h5 className="text-[#a7a7a7] text-[12px] font-bold">ოპიექტის შესახებ</h5>
                         <p className="text-[#a7a7a7] text-[12px] font-bold mt-[8px]">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, maiores? Dicta officia voluptatibus deserunt voluptatum dolores suscipit ipsum dolorem cupiditate distinctio enim, soluta repellat sint nihil expedita quis nemo nobis.
+                           {business?.description}
                         </p>
                     </div>
                 </div>

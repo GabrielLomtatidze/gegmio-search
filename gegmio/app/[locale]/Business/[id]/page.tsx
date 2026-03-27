@@ -31,7 +31,7 @@ export default function Business() {
         if (id) {
             getBusinessById(id);
         }
-    }, [id]);
+    }, []);
 
     useEffect(() => {
         return () => {
