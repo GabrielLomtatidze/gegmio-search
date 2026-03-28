@@ -9,7 +9,7 @@ export default function Profile() {
     return (
 
         <>
-            <div className="w-full flex justify-center">
+            <div className="w-full bg-[#0F0F0F] flex justify-center">
                 <div className="text-white flex flex-col w-full max-w-7xl px-4 py-5 md:px-[100px]">
 
                     <a href="/">

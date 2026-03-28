@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useUserStore } from "@/zustand/User/profileStore";
 import { useTranslations } from "next-intl";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
-
+import Link from "next/link";
 
 export default function Header() {
 
@@ -12,14 +12,15 @@ export default function Header() {
     const { setAuthenticated } = useAuthPositionStore();
 
     const [lang, setLang] = useState("EN");
-    const [openProfileModal, setOpenProfileModal] = useState<boolean>(false);
+    const [openProfileModal, setOpenProfileModal] = useState(false);
+
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         fetchUserInfo();
     }, []);
 
     const userInitial = userInfo?.firstName?.[0].toUpperCase();
-
 
     const logOut = (): void => {
         localStorage.removeItem("accessToken");
@@ -90,12 +91,15 @@ export default function Header() {
 
                                     <div className="flex flex-col gap-2">
 
-                                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
-                                            <img src="/images/grey_profile.svg" alt="profile" />
-                                            <span className="text-[#a7a7a7] text-sm font-bold">
-                                                {t("components.my_profile")}
-                                            </span>
-                                        </button>
+                                        <Link href="/page/profile">
+                                            <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
+                                                <img src="/images/grey_profile.svg" alt="profile" />
+                                                <span className="text-[#a7a7a7] text-sm font-bold">
+                                                    {t("components.my_profile")}
+                                                </span>
+                                            </button>
+                                        </Link>
+
 
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
                                             <img src="/images/grey_heart.svg" alt="heart" />
@@ -120,12 +124,71 @@ export default function Header() {
                         </div>
 
                         <div className="md:hidden">
-                            <img src="/images/menu_burger.svg" alt="burger" />
+                            <button onClick={() => setMobileMenuOpen(true)}>
+                                <img src="/images/menu_burger.svg" alt="burger" />
+                            </button>
                         </div>
 
                     </div>
                 </div>
             </header>
+
+            <div className={`fixed top-0 right-0 w-full h-screen bg-[#0F0F0F] z-[9999] transform transition-transform duration-300 ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+
+                <div className="h-[92px] flex justify-between items-center px-[16px] border-b border-[#242424]">
+                    <div className="flex items-center gap-3">
+
+                        <div className="w-[44px] h-[44px] flex items-center justify-center rounded-full bg-[#2A2A2A] text-white font-semibold">{userInitial}</div>
+
+                        <div className="min-w-0">
+                            <p className="text-white text-sm font-medium truncate">
+                                {userInfo?.lastName}
+                            </p>
+                            <p className="text-[#9CA3AF] text-xs truncate">
+                                {userInfo?.email}
+                            </p>
+                        </div>
+                    </div>
+
+                    <button onClick={() => setMobileMenuOpen(false)} className="w-[41px] h-[42px] border border-[#2b2b2b] rounded-xl">
+                        <span className="text-white text-xl">✕</span>
+                    </button>
+                </div>
+
+                <div className="flex flex-col gap-6 px-[16px] text-white">
+
+                    <div className="mt-[12px]">
+                        <Link href="/page/profile">
+                            <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
+                                <img src="/images/grey_profile.svg" alt="profile" />
+                                <span className="text-[#a7a7a7] text-sm font-bold">
+                                    {t("components.my_profile")}
+                                </span>
+                            </button>
+                        </Link>
+
+
+                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
+                            <img src="/images/grey_heart.svg" alt="heart" />
+                            <span className="text-[#a7a7a7] text-sm font-bold">
+                                {t("components.favorites")}
+                            </span>
+                        </button>
+
+                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition w-full cursor-pointer" onClick={logOut}>
+                            <img src="/images/log_out.svg" alt="logout" />
+                            <span className="text-[#FF2A2A] text-sm font-bold">
+                                {t("components.logout")}
+                            </span>
+                        </button>
+                    </div>
+
+                    <button className="h-[42px] bg-[#F94B00] rounded-xl font-bold">
+                        {t("components.add_business_button")}
+                    </button>
+
+                </div>
+            </div>
         </>
     )
 }

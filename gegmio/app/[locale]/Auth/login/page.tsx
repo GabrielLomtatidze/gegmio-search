@@ -101,7 +101,7 @@ export default function Login() {
                         <input
                             type={showPassword ? "text" : "password"}
                             placeholder="********"
-                            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+                            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -115,7 +115,7 @@ export default function Login() {
                 <div className="flex items-center gap-2 mt-1">
                     <input
                         type="checkbox"
-                        className="w-5 h-5 accent-[#F94B00]"
+                        className="w-5 h-5 accent-[#F94B00] rounded-xl"
                         checked={rememberMe}
                         onChange={() => setRememberMe(!rememberMe)}
                     />
