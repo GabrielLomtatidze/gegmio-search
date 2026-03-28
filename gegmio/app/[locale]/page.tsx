@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import Profile from "./page/profile/page";
 import { useTranslations } from "next-intl";
-
+import axios from "axios";
 
 export default function Home() {
 
@@ -23,13 +23,36 @@ export default function Home() {
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const requestInterceptor = axios.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
 
-    if (!token) {
-      router.replace(`/${locale}/auth/login`);
-    }
+    const responseInterceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          router.replace(`/${locale}/auth/login`);
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
   }, [locale, router]);
 
+  
   const debouncedFetchBusiness = useMemo(
     () =>
       debounce((query: string) => {
