@@ -11,9 +11,12 @@ import Reviews from "@/app/[locale]/layout/reviews";
 import Details from "@/app/[locale]/layout/details";
 import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId";
 import ErrorPage from "@/app/[locale]/page/404";
+import { useTranslations } from "next-intl";
+
 
 export default function Business() {
 
+    const t = useTranslations();
     const params = useParams();
     const id = params?.id as string;
 
@@ -62,18 +65,18 @@ export default function Business() {
                             <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center">
                                 <img src="/images/arrow_left.svg" alt="back" />
                             </div>
-                            <h3 className="text-[#a7a7a7]">უკან დაბრუნება</h3>
+                            <h3 className="text-[#a7a7a7]">{t("pages.back")}</h3>
                         </div>
                     </a>
 
                     <div className="flex items-center gap-3">
                         <div className="px-3 py-2 border border-[#2b2b2b] bg-[#141414] rounded-full flex items-center">
-                            <h4 className="font-bold">1.5 კმ</h4>
+                            <h4 className="font-bold">1.5 {t("pages.distance")}</h4>
                             <img src="/images/map_pin.svg" className="w-[12px] ml-2" />
                         </div>
 
                         <div onClick={toggleFavorite} className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
-                            <img src={favorite ? "/images/heart_filled.svg" : "/images/heart.svg"} />
+                            <img src={favorite ? "/images/fill-heart.svg" : "/images/heart.svg"} />
                         </div>
                     </div>
                 </div>
@@ -95,11 +98,8 @@ export default function Business() {
                 </div>
             </div>
 
-            {/* INFO */}
             <div className="max-w-7xl mx-auto px-4 md:px-[100px]">
-                <h1 className="text-white text-2xl font-bold">
-                    {business.name}
-                </h1>
+                <h1 className="text-white text-2xl font-bold">{business.name}</h1>
 
                 <div className="flex gap-1 mt-2 text-[#FFB83F]">
                     {[1, 2, 3, 4, 5].map((i) => {
@@ -114,8 +114,7 @@ export default function Business() {
                 <div className="flex gap-6 border-b border-[#2b2b2b]">
                     {navItems.map((item) => (
                         <div key={item.id} onClick={() => setSelectedNavId(item.id)} className="cursor-pointer py-2 relative">
-                            <h2
-                                style={{ color: selectedNavId === item.id ? "#F94B00" : "#a7a7a7", }}>
+                            <h2 style={{ color: selectedNavId === item.id ? "#F94B00" : "#a7a7a7", }}>
                                 {item.name}
                             </h2>
 

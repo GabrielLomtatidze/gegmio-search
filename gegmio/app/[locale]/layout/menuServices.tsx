@@ -1,4 +1,3 @@
-
 "use client";
 import { FiSearch } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";

@@ -1,10 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useUserStore } from "@/zustand/User/profileStore";
+import { useTranslations } from "next-intl";
 
 
 export default function Header() {
 
+    const t = useTranslations();
     const { userInfo, fetchUserInfo } = useUserStore();
 
     const [lang, setLang] = useState("EN");
@@ -27,18 +29,18 @@ export default function Header() {
         <>
             <header className="border-b-2 border-b-[#242424] w-full flex justify-center bg-[#0F0F0F] sticky top-0 z-9999 absolute top-0">
                 <div className="text-white flex justify-between items-center max-w-7xl w-full m-auto px-4 py-5 md:px-[100px]">
+
                     <a href="/" className="logo">
                         <img src="/images/logo.svg" alt="Gegmio Logo" />
                     </a>
-                    <div className="h-[42px] flex justify-end items-center gap-2">
-                        {/* <div className="w-[42px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl flex justify-center items-center cursor-pointer">
-                            <img src="/images/heart.svg" alt="Gegmio" />
-                        </div> */}
-                        <div className="hidden md:flex  w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl  p-[3px] flex items-center">
-                            <div className="relative w-full h-full bg-[#111] rounded-full flex ">
-                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
 
-                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-[#6C6C6C]"}`} >
+                    <div className="h-[42px] flex justify-end items-center gap-2">
+
+                        <div className="hidden md:flex w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl p-[3px] flex items-center">
+                            <div className="relative w-full h-full bg-[#111] rounded-full flex">
+                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2" }`}/>
+
+                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-[#6C6C6C]"}`}>
                                     EN
                                 </button>
 
@@ -47,8 +49,9 @@ export default function Header() {
                                 </button>
                             </div>
                         </div>
+
                         <button className="hidden md:block w-[214px] h-full bg-[#F94B00] rounded-xl text-white font-bold text-sm">
-                            დაამატე ბიზნესი უფასოდ
+                            {t("components.add_business_button")}
                         </button>
 
                         <div className="relative hidden md:block">
@@ -56,7 +59,11 @@ export default function Header() {
                                 <div className="w-[28px] h-[28px] bg-[#242424] rounded-full flex justify-center items-center">
                                     {userInitial}
                                 </div>
-                                <h3 className="font-bold">{userInfo?.firstName}</h3>
+
+                                <h3 className="font-bold">
+                                    {userInfo?.firstName}
+                                </h3>
+
                                 <img src="/images/arrow_down.svg" alt="arrow_down" />
                             </div>
 
@@ -64,12 +71,15 @@ export default function Header() {
                                 <div className="absolute top-full right-0 mt-2 w-[209px] h-[237px] bg-[#0F0F0F] p-[14px] border border-[#2b2b2b] rounded-xl shadow-lg z-50 transition-all duration-300">
 
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#2A2A2A] text-white font-semibold">
-                                            I
-                                        </div>
+                                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#2A2A2A] text-white font-semibold">{userInitial}</div>
+
                                         <div className="min-w-0">
-                                            <p className="text-white text-sm font-medium truncate">{userInfo?.lastName}</p>
-                                            <p className="text-[#9CA3AF] text-xs truncate">{userInfo?.email}</p>
+                                            <p className="text-white text-sm font-medium truncate">
+                                                {userInfo?.lastName}
+                                            </p>
+                                            <p className="text-[#9CA3AF] text-xs truncate">
+                                                {userInfo?.email}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -79,12 +89,16 @@ export default function Header() {
 
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
                                             <img src="/images/grey_profile.svg" alt="profile" />
-                                            <span className="text-[#a7a7a7] text-sm font-bold">ჩემი პროფილი</span>
+                                            <span className="text-[#a7a7a7] text-sm font-bold">
+                                                {t("components.my_profile")}
+                                            </span>
                                         </button>
 
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
                                             <img src="/images/grey_heart.svg" alt="heart" />
-                                            <span className="text-[#a7a7a7] text-sm font-bold">რჩეულები</span>
+                                            <span className="text-[#a7a7a7] text-sm font-bold">
+                                                {t("components.favorites")}
+                                            </span>
                                         </button>
 
                                     </div>
@@ -92,7 +106,9 @@ export default function Header() {
                                     <div className="mt-2">
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition w-full cursor-pointer" onClick={logOut}>
                                             <img src="/images/log_out.svg" alt="logout" />
-                                            <span className="text-[#FF2A2A] text-sm font-bold">გასვლა</span>
+                                            <span className="text-[#FF2A2A] text-sm font-bold">
+                                                {t("components.logout")}
+                                            </span>
                                         </button>
                                     </div>
 
@@ -103,10 +119,9 @@ export default function Header() {
                         <div className="md:hidden">
                             <img src="/images/menu_burger.svg" alt="burger" />
                         </div>
+
                     </div>
-
                 </div>
-
             </header>
         </>
     )

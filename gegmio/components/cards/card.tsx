@@ -1,7 +1,6 @@
 "use client"
 import { useState } from "react";
-
-
+import { useTranslations } from "next-intl";
 
 type Props = {
     businessId: string,
@@ -16,6 +15,7 @@ type Props = {
 
 export default function Card({ businessId, isFavorite, title, image, address, businessCategory, distance }: Props) {
 
+    const t = useTranslations();
     const [checked, setChecked] = useState<boolean>(false);
 
     return (
@@ -29,11 +29,11 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                             <div className="flex justify-between">
                                 <div className="inline-flex px-[12px] backdrop-blur-sm bg-black/50 rounded-2xl items-center gap-2">
                                     <div className="w-[8px] h-[8px] bg-[#00d34d] rounded-full" />
-                                    <h3 className="text-white">ღიაა ახლა</h3>
+                                    <h3 className="text-white">{t("components.profile_open_now")}</h3>
                                 </div>
 
                                 <div className="w-[32px] h-[32px] backdrop-blur-xl bg-black/40 rounded-full flex justify-center items-center cursor-pointer" onClick={() => setChecked(!checked)}>
-                                    <img src={`/images/${checked ? "fill-heart.svg" : "heart.svg"}`} alt="" className="w-5 h-5 object-contain" />
+                                    <img src={`/images/${checked ? "fill-heart.svg" : "heart.svg"}`} alt="heart" className="w-5 h-5 object-contain" />
                                 </div>
                             </div>
 
@@ -51,7 +51,7 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                     <div className="w-full h-[18px] flex justify-between">
                         <h3 className="text-[14px] text-[#a7a7a7]">{businessCategory}</h3>
                         <div className="flex">
-                            <h3 className="text-[14px] text-white">5 km </h3>
+                            <h3 className="text-[14px] text-white">5 {t("components.distance")} </h3>
                             <img src="/images/map_pin.svg" alt="map icon" className="ml-[10px]" />
                         </div>
                     </div>

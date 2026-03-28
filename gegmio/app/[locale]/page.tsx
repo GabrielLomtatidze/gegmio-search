@@ -9,9 +9,12 @@ import debounce from "lodash.debounce";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import Profile from "./page/profile/page";
+import { useTranslations } from "next-intl";
+
 
 export default function Home() {
 
+  const t = useTranslations();
   const router = useRouter();
   const params = useParams();
   const locale = params.locale;
@@ -93,7 +96,7 @@ export default function Home() {
 
           <div className="flex md:justify-center w-full md:w-[109px] gap-[8px] items-center mt-2 md:mt-0">
             <div className="w-[8px] h-[8px] bg-[#F94B00] rounded-full" />
-            <h3 className="text-[16px] text-white font-bold">შედეგი</h3>
+            <h3 className="text-[16px] text-white font-bold">{t("pages.result")}</h3>
             <h3 className="text-[16px] text-[#a7a7a7] font-bold">({countedBusiness})</h3>
           </div>
         </div>
