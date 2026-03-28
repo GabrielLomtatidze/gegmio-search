@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 
+
 type Errors = {
     count: string,
     valid: string
@@ -61,9 +62,9 @@ export default function Otp() {
     return (
         <div className="w-[376px] h-[302px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white flex flex-col items-center justify-between">
             <div className="text-center space-y-2">
-                <h2 className="text-xl font-semibold">ვერიფიკაცია</h2>
+                <h2 className="text-xl font-semibold">{t("auth.verification")}</h2>
                 <p className="text-[12px] text-[#a7a7a7]">
-                    კოდი გამოგზავნილია მითითებულ ელ-ფოსტაზე
+                    {t("auth.otp_sent")}
                 </p>
             </div>
 
@@ -89,20 +90,17 @@ export default function Otp() {
                 </InputOTPGroup>
             </InputOTP>
 
-            <button
-                className="w-full h-12 rounded-xl bg-[#F94B00] transition font-medium cursor-pointer"
-                onClick={finish}
-            >
-                რეგისტრაცია
+            <button className="w-full h-12 rounded-xl bg-[#F94B00] transition font-medium cursor-pointer" onClick={finish} >
+                {t("auth.register_button")}
             </button>
 
             {errors.count && <p className="text-red-500 text-sm">{errors.count}</p>}
             {errors.valid && <p className="text-red-500 text-sm">{errors.valid}</p>}
 
             <p className="text-[14px] text-white">
-                არ მოვიდა კოდი?{" "}
+                {t("auth.resend_question")}{" "}
                 <span className="text-[#F94B00] cursor-pointer hover:underline">
-                    გაგზავნა
+                    {t("auth.resend")}
                 </span>
             </p>
         </div>

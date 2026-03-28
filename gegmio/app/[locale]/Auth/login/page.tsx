@@ -72,14 +72,12 @@ export default function Login() {
 
     return (
         <div className="w-[376px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white">
-            <h1 className="text-center text-[20px] font-semibold">შენს ანგარიშში</h1>
-            <p className="text-center text-sm text-gray-400 mt-1 mb-6">
-                დარეგისტრირდი და გამოიყენე ჩვენი სერვისები
-            </p>
+            <h1 className="text-center text-[20px] font-semibold">{t("auth.login_title")}</h1>
+            <p className="text-center text-sm text-gray-400 mt-1 mb-6">{t("auth.login_subtitle")}</p>
 
             <form className="flex flex-col gap-4" onSubmit={handleLogin}>
                 <div>
-                    <label className="text-sm text-gray-300 mb-1 block">ელ-ფოსტა</label>
+                    <label className="text-sm text-gray-300 mb-1 block">{t("auth.email_label")}</label>
                     <input
                         placeholder="your@gmail.com"
                         className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
@@ -91,10 +89,8 @@ export default function Login() {
 
                 <div>
                     <div className="flex justify-between items-center mb-1">
-                        <label className="text-sm text-gray-300">პაროლი</label>
-                        <span className="text-sm text-[#F94B00] cursor-pointer hover:underline">
-                            დაგავიწყდა პაროლი?
-                        </span>
+                        <label className="text-sm text-gray-300">{t("auth.password_label")}</label>
+                        <span className="text-sm text-[#F94B00] cursor-pointer hover:underline">{t("auth.forgot_password")}</span>
                     </div>
                     <div className="relative">
                         <input
@@ -104,11 +100,7 @@ export default function Login() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-white"
-                        >
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white" >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
@@ -122,15 +114,11 @@ export default function Login() {
                         checked={rememberMe}
                         onChange={() => setRememberMe(!rememberMe)}
                     />
-                    <span className="text-sm text-gray-300">დამახსოვრება</span>
+                    <span className="text-sm text-gray-300">{t("auth.remember_me")}</span>
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full h-[52px] mt-3 rounded-xl bg-[#F94B00] hover:bg-[#ff5a1a] transition font-medium"
-                    disabled={loading}
-                >
-                    {loading ? "დელოდე..." : "შესვლა"}
+                <button type="submit" className="w-full h-[52px] mt-3 rounded-xl bg-[#F94B00] font-medium cursor-pointer" disabled={loading}>
+                    {loading ? "დელოდე..." : t("auth.login_button")}
                 </button>
             </form>
         </div>

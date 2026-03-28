@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
@@ -87,18 +86,16 @@ export default function RegistrationPage() {
       checkbox: "",
     };
 
-    if (!firstName) newErrors.firstName = "First name required";
-    else if (!onlyLettersEnter.test(firstName)) newErrors.firstName = "Only letters allowed";
-    else if (firstName.length >= 50) newErrors.firstName = "Max 50 characters";
+    if (!firstName) newErrors.firstName = t("auth.errors.first_name_required");
+    else if (!onlyLettersEnter.test(firstName)) newErrors.firstName = t("auth.errors.only_letters");
+    else if (firstName.length >= 50) newErrors.firstName = t("auth.errors.first_name_max_50");
 
     if (!lastName) newErrors.lastName = "Last name required";
-    else if (!onlyLettersEnter.test(lastName)) newErrors.lastName = "Only letters allowed";
-    else if (lastName.length >= 50) newErrors.lastName = "Max 50 characters";
+    else if (!onlyLettersEnter.test(lastName)) newErrors.lastName = t("auth.errors.only_letters");
+    else if (lastName.length >= 50) newErrors.lastName = t("auth.errors.last_name_max_50");
 
-    if (!selectedGenderId) newErrors.gender = "Select gender";
-
-    if (!birthDate) {
-      newErrors.age = "Birth date required";
+        if (!birthDate) {
+      newErrors.age = t("auth.errors.age_required");
     } else {
       const today = new Date();
       const bd = new Date(birthDate);
@@ -108,7 +105,7 @@ export default function RegistrationPage() {
       const d = today.getDate() - bd.getDate();
 
       if (age < 18 || (age === 18 && (m < 0 || (m === 0 && d < 0)))) {
-        newErrors.age = "Must be 18+";
+        newErrors.age = t("auth.errors.age_min_18");
       }
     }
 
@@ -175,7 +172,7 @@ export default function RegistrationPage() {
       if (error.response?.data?.detail) {
         setErrors((prev) => ({
           ...prev,
-          email: "Email already used",
+          email: t("auth.errors.email_used"),
         }));
       }
     } finally {
@@ -190,13 +187,13 @@ export default function RegistrationPage() {
       </h1>
 
       <p className="text-center text-sm text-gray-400 mt-1 mb-6">
-        დარეგისტრირდი და მიიღე წვდომა სერვისებზე
+        {t("auth.subtitle")}
       </p>
 
       <form className="flex flex-col gap-4" onSubmit={sendUserData}>
 
         <div>
-          <label className="text-sm mb-1 block">სახელი</label>
+          <label className="text-sm mb-1 block">{t("auth.first_name")}</label>
           <input
             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
             onChange={(e) => setFirstName(e.target.value)}
@@ -205,7 +202,7 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">გვარი</label>
+          <label className="text-sm mb-1 block">{t("auth.last_name")}</label>
           <input
             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
             onChange={(e) => setLastName(e.target.value)}
@@ -214,7 +211,7 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">დაბადების თარიღი</label>
+          <label className="text-sm mb-1 block">{t("auth.birth_date")}</label>
           <input
             type="date"
             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
@@ -224,12 +221,12 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">Gender</label>
+          <label className="text-sm mb-1 block">{t("auth.gender")}</label>
           <select
             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
             onChange={(e) => setSelectedGenderId(Number(e.target.value))}
           >
-            <option value="">Select gender</option>
+            <option value="">{t("auth.select_gender")}</option>
             {genderOptions.map((g) => (
               <option key={g.id} value={g.id}>
                 {g.name}
@@ -240,7 +237,7 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">ელ-ფოსტა</label>
+          <label className="text-sm mb-1 block">{t("auth.email_label")}</label>
           <input
             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
             onChange={(e) => setEmail(e.target.value)}
@@ -249,7 +246,7 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">პაროლი</label>
+          <label className="text-sm mb-1 block">{t("auth.password_label")}</label>
           <div className="relative">
             <input
               type={showPass ? "text" : "password"}
@@ -264,7 +261,7 @@ export default function RegistrationPage() {
         </div>
 
         <div>
-          <label className="text-sm mb-1 block">გაიმეორე პაროლი</label>
+          <label className="text-sm mb-1 block">{t("auth.repeat_password")}</label>
           <div className="relative">
             <input
               type={showRepeatPass ? "text" : "password"}
@@ -279,25 +276,16 @@ export default function RegistrationPage() {
         </div>
 
         <label className="flex items-center gap-2 text-sm mt-2">
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={(e) => setIsChecked(e.target.checked)}
-            className="accent-[#F94B00]"
-          />
-          ვეთანხმები{" "}
+          <input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} className="accent-[#F94B00]"/>
+          {t("auth.agree")}{" "}
           <span className="text-[#F94B00] underline cursor-pointer">
-            წესებს & პირობებს
+            {t("auth.terms")}
           </span>
         </label>
         {errors.checkbox && <p className="text-red-500 text-sm">{errors.checkbox}</p>}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="mt-3 h-[56px] rounded-xl bg-[#F94B00] font-medium"
-        >
-          {loading ? "Loading..." : "შექმენი ანგარიში"}
+        <button type="submit" disabled={loading} className="mt-3 h-[56px] rounded-xl bg-[#F94B00] font-medium" >
+          {loading ? t("auth.loading") : t("auth.create_account")}
         </button>
       </form>
     </div>

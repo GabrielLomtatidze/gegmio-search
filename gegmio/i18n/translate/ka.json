@@ -1,6 +1,6 @@
 {
     "auth": {
-        "login_title": "შენს ანგარიშში",
+        "login_title": "შენი ანგარიშში",
         "login_subtitle": "დარეგისტრირდი და გამოიყენე ჩვენი სერვისები",
         "email_label": "ელ-ფოსტა",
         "password_label": "პაროლი",
@@ -15,8 +15,6 @@
         "birth_date": "დაბადების თარიღი",
         "gender": "სქესი",
         "select_gender": "აირჩიე სქესი",
-        "email": "ელ-ფოსტა",
-        "password": "პაროლი",
         "repeat_password": "გაიმეორე პაროლი",
         "agree": "ვეთანხმები",
         "terms": "წესებს & პირობებს",

@@ -1,24 +1,15 @@
-import { getRequestConfig } from "next-intl/server";
-import { hasLocale } from "next-intl";
-import { routing } from "./routing";
+import {hasLocale} from 'next-intl';
+import {getRequestConfig} from 'next-intl/server';
+import {routing} from './routing';
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  const locale = hasLocale(routing.locales, requestLocale)
-    ? requestLocale
+export default getRequestConfig(async ({requestLocale}) => {
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
     : routing.defaultLocale;
 
-  let messages;
-
-  switch (locale) {
-    case "ka":
-      messages = (await import("./translate/ka.json")).default;
-      break;
-    case "en":
-      messages = (await import("./translate/en.json")).default;
-      break;
-    default:
-      messages = (await import("./translate/ka.json")).default;
-  }
-
-  return { locale, messages };
+  return {
+    locale,
+    messages: (await import(`../i18n/translate/${locale}.json`)).default
+  };
 });
