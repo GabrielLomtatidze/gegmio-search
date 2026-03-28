@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 
 interface Errors {
     email: string;
@@ -11,8 +12,10 @@ interface Errors {
 }
 
 export default function Login() {
+
     const router = useRouter();
     const t = useTranslations();
+    const { setAuthenticated } = useAuthPositionStore()
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -54,6 +57,8 @@ export default function Login() {
 
             if (accessToken) {
                 localStorage.setItem("accessToken", accessToken);
+
+                setAuthenticated(true);
 
                 router.replace("/");
             } else {

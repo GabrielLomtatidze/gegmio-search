@@ -5,6 +5,7 @@ import { useAuthStore } from "@/zustand/User/authStore";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 
 
 type Errors = {
@@ -13,9 +14,11 @@ type Errors = {
 }
 
 export default function Otp() {
+
     const t = useTranslations();
     const { email, password, clear } = useAuthStore();
     const router = useRouter();
+    const { setAuthenticated} = useAuthPositionStore();
 
     const [otp, setOtp] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
@@ -50,6 +53,9 @@ export default function Otp() {
             }
 
             clear();
+            
+            setAuthenticated(true);
+            
             router.replace("/");
 
         } catch (err: any) {

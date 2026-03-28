@@ -2,12 +2,14 @@
 import { useState, useEffect } from "react";
 import { useUserStore } from "@/zustand/User/profileStore";
 import { useTranslations } from "next-intl";
+import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 
 
 export default function Header() {
 
     const t = useTranslations();
     const { userInfo, fetchUserInfo } = useUserStore();
+    const { setAuthenticated } = useAuthPositionStore();
 
     const [lang, setLang] = useState("EN");
     const [openProfileModal, setOpenProfileModal] = useState<boolean>(false);
@@ -22,6 +24,7 @@ export default function Header() {
     const logOut = (): void => {
         localStorage.removeItem("accessToken");
         window.location.reload();
+        setAuthenticated(false);
     };
 
 
@@ -38,7 +41,7 @@ export default function Header() {
 
                         <div className="hidden md:flex w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl p-[3px] flex items-center">
                             <div className="relative w-full h-full bg-[#111] rounded-full flex">
-                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2" }`}/>
+                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
 
                                 <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-[#6C6C6C]"}`}>
                                     EN

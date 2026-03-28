@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="bg-[#0F0F0F] w-full flex border-t-2 border-t-[#242424] justify-center">
             <div className="footer_wrapper text-white grid grid-cols-1 justify-between max-w-7xl w-full m-auto px-4 md:px-[100px] py-11 lg:grid-cols-2 gap-8">
 
-                <div className="flex-1 flex flex-col gap-6">``
+                <div className="flex-1 flex flex-col gap-6">
                     <div className="logo font-bold text-2xl">
                         <img src="/images/logo.svg" alt="Gegmio" />
                     </div>
