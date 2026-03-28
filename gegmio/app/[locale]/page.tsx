@@ -19,8 +19,7 @@ export default function Home() {
   const params = useParams();
   const pathname = usePathname();
   const locale = params.locale;
-  const { businessStore, loading, fetchBusiness } = useBusinessStore();
-  const { setAuthenticated, isAuthenticated } = useAuthPositionStore();
+  const { setAuthenticated } = useAuthPositionStore();
 
 
   useEffect(() => {

@@ -187,6 +187,57 @@ export default function Header() {
                         {t("components.add_business_button")}
                     </button>
 
+                    <div className="h-[279px] w-full absolute bottom-[24px] left-0 px-[16px]">
+
+                        <h3 className="text-[#a7a7a7] text-[14px] mt-[12px]">{t("layout.contact_info")}</h3>
+
+                        <div className="flex items-center gap-2 mt-[20px] rounded-lg">
+                            <img src="/images/fill_call.svg" alt="profile" />
+                            <span className="text-white text-sm font-bold">
+                                +995 586 90 24 10
+                            </span>
+                        </div>
+
+                        <div className="flex items-center gap-1 mt-[20px] rounded-lg">
+                            <img src="/images/fill_mail.svg" alt="profile" />
+                            <span className="text-white text-sm font-bold">
+                                info@gmail.com
+                            </span>
+                        </div>
+
+                        <div className="h-[42px] mt-[20px] flex gap-5">
+                            <a href="https://www.facebook.com/profile.php?id=61583853083725" target="_blank" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
+                                <img src="/images/facebook-big.svg" alt="Facebook" className="w-[24px] absolute opacity-100" />
+                            </a>
+
+                            <a href="#" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
+                                <img src="/images/tiktok-big.svg" alt="tiktok" className="w-[24px] absolute opacity-100" />
+                            </a>
+
+                            <a href="#" className="group w-[42px] h-[42px] border-3 border-[#2b2b2b] rounded-full flex items-center justify-center relative overflow-hidden">
+                                <img src="/images/Linkedin.svg" alt="linkedin" className="w-[24px] absolute opacity-100" />
+                            </a>
+                        </div>
+
+                        <div className="w-full h-[1px] bg-[#2b2b2b] mt-[16px] mb-[16px]" />
+
+                        <div className="flex w-[102px] h-[42px] border-[1px] border-[#2b2b2b] rounded-xl p-[3px] flex items-center">
+                            <div className="relative w-full h-full bg-[#111] rounded-full flex">
+                                <div className={`absolute top-0 h-full w-1/2 bg-[#F94B00] rounded-xl transition-all duration-300 ${lang === "EN" ? "left-0" : "left-1/2"}`} />
+
+                                <button onClick={() => setLang("EN")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "EN" ? "text-white" : "text-[#6C6C6C]"}`}>
+                                    EN
+                                </button>
+
+                                <button onClick={() => setLang("GE")} className={`w-1/2 z-10 text-sm font-semibold ${lang === "GE" ? "text-white" : "text-[#6C6C6C]"}`} >
+                                    GE
+                                </button>
+                            </div>
+                        </div>
+
+                        <h2 className="text-[12px] text-[#a7a7a7]">© 2025 Gegmio LLC · Privacy · Terms</h2>
+                    </div>
+
                 </div>
             </div>
         </>
