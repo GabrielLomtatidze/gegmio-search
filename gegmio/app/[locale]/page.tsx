@@ -9,6 +9,7 @@ import axios from "axios";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 import Profile from "./page/profile/page";
 import Main from "./page/main/page";
+import PrivacyPolicy from "./page/privacypolicy/page";
 
 // wogofaj349@fftube.com
 
@@ -64,7 +65,7 @@ export default function Home() {
       <Header />
       
       {pathname === `/${locale}/page/privacypolicy` ? (
-        <Profile />
+        <PrivacyPolicy />
       ) : (
         <>
           <Main />

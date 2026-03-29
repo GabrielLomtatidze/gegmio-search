@@ -26,6 +26,10 @@
         "register_button": "Register",
         "resend_question": "Didn't receive the code?",
         "resend": "Resend",
+        "change_password": "Change password",
+        "current_password": "Current password",
+        "password_guideline": "For better security, use uppercase letters, numbers, and symbols.",
+        "new_passowrd": "New password",
         "errors": {
             "only_letters": "Please enter letters only",
             "only_number": "Please enter numbers only",

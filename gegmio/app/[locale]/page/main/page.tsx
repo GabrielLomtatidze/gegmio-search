@@ -26,7 +26,7 @@ export default function Main() {
                 setLatitude(position.coords.latitude);
                 setLongitude(position.coords.longitude);
             },
-            () => {}``
+            () => {}
         );
     }, []);
 
