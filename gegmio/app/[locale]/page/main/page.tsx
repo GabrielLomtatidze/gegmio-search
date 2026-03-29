@@ -15,29 +15,51 @@ export default function Main() {
 
     const [search, setSearch] = useState<string>("");
 
+    const [latitude, setLatitude] = useState<number | null>(null);
+    const [longitude, setLongitude] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (!navigator.geolocation) return;
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+            },
+            () => {}``
+        );
+    }, []);
 
     const debouncedFetchBusiness = useMemo(
         () =>
-            debounce((query: string) => {
-                fetchBusiness({ searchKey: query, });
+            debounce((query: string, lat: number, lng: number) => {
+                fetchBusiness({
+                    searchKey: query,
+                    latitude: lat,
+                    longitude: lng,
+                });
             }, 500),
-
         [fetchBusiness]
-
     );
 
     useEffect(() => {
-        if (search === "") {
-            fetchBusiness({ searchKey: "" });
+        if (latitude === null || longitude === null) return;
 
+        if (search === "") {
+            fetchBusiness({
+                searchKey: "",
+                latitude,
+                longitude,
+            });
             return;
         }
-        debouncedFetchBusiness(search);
+
+        debouncedFetchBusiness(search, latitude, longitude);
+
         return () => debouncedFetchBusiness.cancel();
-    }, [search]);
+    }, [search, latitude, longitude, fetchBusiness, debouncedFetchBusiness]);
 
     const countedBusiness = businessStore.length;
-
 
 
     return (

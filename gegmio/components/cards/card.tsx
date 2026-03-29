@@ -51,7 +51,7 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                     <div className="w-full h-[18px] flex justify-between">
                         <h3 className="text-[14px] text-[#a7a7a7]">{businessCategory}</h3>
                         <div className="flex">
-                            <h3 className="text-[14px] text-white">5 {t("components.distance")} </h3>
+                            <h3 className="text-[14px] text-white">{distance} {t("components.distance")} </h3>
                             <img src="/images/map_pin.svg" alt="map icon" className="ml-[10px]" />
                         </div>
                     </div>
