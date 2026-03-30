@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Errors {
     email: string;
@@ -122,8 +123,8 @@ export default function Login() {
                     <span className="text-sm text-gray-300">{t("auth.remember_me")}</span>
                 </div>
 
-                <button type="submit" className="w-full h-[52px] mt-3 rounded-xl bg-[#F94B00] font-medium cursor-pointer" disabled={loading}>
-                    {loading ? "დელოდე..." : t("auth.login_button")}
+                <button type="submit" className="w-full h-[52px] mt-3 rounded-xl bg-[#F94B00] flex items-center justify-center font-medium cursor-pointer" disabled={loading}>
+                    {loading ? <Spinner /> : t("auth.login_button")}
                 </button>
             </form>
         </div>

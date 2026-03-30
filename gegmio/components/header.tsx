@@ -21,8 +21,8 @@ export default function Header() {
 
     const logOut = (): void => {
         localStorage.removeItem("accessToken");
+        window.location.reload();
         setAuthenticated(false);
-        router.refresh();
     };
 
     const currentLocale = pathname.split("/")[1] === "ka" ? "ka" : "en";
