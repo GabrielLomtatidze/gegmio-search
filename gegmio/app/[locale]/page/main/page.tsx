@@ -80,6 +80,8 @@ export default function Main() {
         };
     }, [search, latitude, longitude, locationResolved, debouncedFetchBusiness]);
 
+    const countedBusinesses = businessStore.length;
+
 
     return (
         <>
@@ -124,7 +126,7 @@ export default function Main() {
                     <div className="flex md:justify-center w-full md:w-[109px] gap-[8px] items-center mt-2 md:mt-0">
                         <div className="w-[8px] h-[8px] bg-[#F94B00] rounded-full" />
                         <h3 className="text-[16px] text-white font-bold">{t("pages.result")}</h3>
-                        <h3 className="text-[16px] text-[#a7a7a7] font-bold">()</h3>
+                        <h3 className="text-[16px] text-[#a7a7a7] font-bold">({countedBusinesses})</h3>
                     </div>
                 </div>
             </div>

@@ -16,10 +16,6 @@ export default function Header() {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    useEffect(() => {
-        fetchUserInfo();
-    }, []);
-
     const userInitial = userInfo?.firstName?.[0].toUpperCase();
 
     const logOut = (): void => {
