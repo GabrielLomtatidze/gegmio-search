@@ -2,50 +2,51 @@ import { create } from 'zustand';
 import axios from 'axios';
 
 type File = {
-    id: number,
-    url: string,
-    isProfile: boolean
-}
+    id: number;
+    url: string;
+    isProfile: boolean;
+};
 
 type Gender = {
-    id: number,
-    name: string
-}
+    id: number;
+    name: string;
+};
 
 type Role = {
-    id: string,
-    name: string
-}
+    id: string;
+    name: string;
+};
 
 type UserInfo = {
-    id: number,
-    firstName: string,
-    lastName: string
+    id: number;
+    firstName: string;
+    lastName: string;
     email: string;
     birthDate: string;
-    phoneNumber: string,
-    createDate: string,
-    file: File,
-    gender: Gender,
-    role: Role
+    phoneNumber: string;
+    createDate: string;
+    file: File;
+    gender: Gender;
+    role: Role;
 };
 
 type UserStore = {
     userInfo: UserInfo | null;
+    fetched: boolean;
     fetchUserInfo: () => Promise<void>;
 };
 
 export const useUserStore = create<UserStore>((set, get) => ({
     userInfo: null,
+    fetched: false,
 
     fetchUserInfo: async () => {
+        
+        if (get().fetched) return;
 
         try {
-
-            const accessToken = await localStorage.getItem("accessToken");
-            if (!accessToken) {
-                return
-            }
+            const accessToken = localStorage.getItem("accessToken");
+            if (!accessToken) return;
 
             const response = await axios.get(
                 'https://bookitcrm.runasp.net/api/v1/account/profile',
@@ -58,10 +59,9 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
             const data = response.data;
 
-            set({ userInfo: data });
-
+            set({ userInfo: data, fetched: true });
         } catch (error) {
-            console.error("error proilei info:", error);
+            console.error("Error fetching profile info:", error);
         }
     },
 }));
