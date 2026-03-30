@@ -16,7 +16,7 @@ import PrivacyPolicy from "./page/privacypolicy/page";
 export default function Home() {
 
   const t = useTranslations();
-  const router = useRouter();
+  const router = useRouter();``
   const params = useParams();
   const pathname = usePathname();
   const locale = params.locale;

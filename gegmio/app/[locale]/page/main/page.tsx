@@ -17,49 +17,68 @@ export default function Main() {
 
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
+    const [locationResolved, setLocationResolved] = useState(false);
 
     useEffect(() => {
-        if (!navigator.geolocation) return;
+        if (!navigator.geolocation) {
+            setLocationResolved(true);
+            return;
+        }
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 setLatitude(position.coords.latitude);
                 setLongitude(position.coords.longitude);
+                setLocationResolved(true);
             },
-            () => {}
+            () => {
+                setLocationResolved(true);
+            }
         );
     }, []);
 
-    const debouncedFetchBusiness = useMemo(
-        () =>
-            debounce((query: string, lat: number, lng: number) => {
+    const debouncedFetchBusiness = useMemo(() => {
+        return debounce(
+            (query: string, lat?: number, lng?: number) => {
                 fetchBusiness({
                     searchKey: query,
-                    latitude: lat,
-                    longitude: lng,
+                    ...(lat !== undefined &&
+                        lng !== undefined && {
+                        latitude: lat,
+                        longitude: lng,
+                    }),
                 });
-            }, 500),
-        [fetchBusiness]
-    );
+            },
+            500
+        );
+    }, [fetchBusiness]);
 
     useEffect(() => {
-        if (latitude === null || longitude === null) return;
+        if (!locationResolved) return;
+
+        const hasLocation = latitude !== null && longitude !== null;
 
         if (search === "") {
             fetchBusiness({
                 searchKey: "",
-                latitude,
-                longitude,
+                ...(hasLocation && {
+                    latitude: latitude!,
+                    longitude: longitude!,
+                }),
             });
             return;
         }
 
-        debouncedFetchBusiness(search, latitude, longitude);
+        debouncedFetchBusiness(
+            search,
+            hasLocation ? latitude! : undefined,
+            hasLocation ? longitude! : undefined
+        );
 
-        return () => debouncedFetchBusiness.cancel();
-    }, [search, latitude, longitude, fetchBusiness, debouncedFetchBusiness]);
-
-    const countedBusiness = businessStore.length;
+        return () => {
+            debouncedFetchBusiness.cancel();
+        };
+    }, [search, latitude, longitude, locationResolved, debouncedFetchBusiness]);
 
 
     return (
@@ -105,7 +124,7 @@ export default function Main() {
                     <div className="flex md:justify-center w-full md:w-[109px] gap-[8px] items-center mt-2 md:mt-0">
                         <div className="w-[8px] h-[8px] bg-[#F94B00] rounded-full" />
                         <h3 className="text-[16px] text-white font-bold">{t("pages.result")}</h3>
-                        <h3 className="text-[16px] text-[#a7a7a7] font-bold">({countedBusiness})</h3>
+                        <h3 className="text-[16px] text-[#a7a7a7] font-bold">()</h3>
                     </div>
                 </div>
             </div>
