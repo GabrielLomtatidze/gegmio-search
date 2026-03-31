@@ -15,9 +15,7 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 
-
 export default function Business() {
-
     const t = useTranslations();
     const params = useParams();
     const id = params?.id as string;
@@ -28,6 +26,9 @@ export default function Business() {
     const [selectedNavId, setSelectedNavId] = useState<number>(0);
     const [favorite, setFavorite] = useState(false);
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
     const navItems = [
         { id: 0, name: t("pages.menu_service") },
         { id: 1, name: t("pages.reviews") },
@@ -35,9 +36,7 @@ export default function Business() {
     ];
 
     useEffect(() => {
-        if (id) {
-            getBusinessById(id);
-        }
+        if (id) getBusinessById(id);
     }, [id]);
 
     useEffect(() => {
@@ -57,9 +56,7 @@ export default function Business() {
 
         try {
             if (!guessMode && business) {
-                const isFav = favorite;
-
-                if (!isFav) {
+                if (!favorite) {
                     await axios.post(
                         `https://bookitcrm.runasp.net/api/v1/favorites/${id}`,
                         {},
@@ -82,12 +79,32 @@ export default function Business() {
                     );
                 }
 
-                setFavorite(!isFav);
+                setFavorite(!favorite);
             }
         } catch (error) {
             console.log(error);
         }
     };
+
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (touchStartX === null) return;
+
+        const diff = touchStartX - e.touches[0].clientX;
+
+        if (diff > 50 && currentIndex < (business?.files?.length || 0) - 1) {
+            setCurrentIndex((prev) => prev + 1);
+            setTouchStartX(null);
+        } else if (diff < -50 && currentIndex > 0) {
+            setCurrentIndex((prev) => prev - 1);
+            setTouchStartX(null);
+        }
+    };
+
+    const handleTouchEnd = () => setTouchStartX(null);
 
     if (loading) {
         return (
@@ -102,20 +119,17 @@ export default function Business() {
     const images = business.files || [];
     const rating = 3.5;
 
-
     return (
         <div className="bg-[#0F0F0F]">
             <Header />
 
-            <div className="w-full flex justify-center sticky top-0 z-30">
+            <div className="hidden md:flex w-full justify-center sticky top-0 z-30">
                 <div className="text-white flex justify-between items-center max-w-7xl w-full px-4 py-5 md:px-[100px]">
-                    <a href="/">
-                        <div className="flex items-center gap-3 cursor-pointer">
-                            <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center">
-                                <img src="/images/arrow_left.svg" alt="back" />
-                            </div>
-                            <h3 className="text-[#a7a7a7]">{t("pages.back")}</h3>
+                    <a href="/" className="flex items-center gap-3">
+                        <div className="w-[42px] h-[42px] border border-[#2b2b2b] rounded-full flex justify-center items-center">
+                            <img src="/images/arrow_left.svg" />
                         </div>
+                        <h3 className="text-[#a7a7a7]">{t("pages.back")}</h3>
                     </a>
 
                     <div className="flex items-center gap-3">
@@ -124,15 +138,58 @@ export default function Business() {
                             <img src="/images/map_pin.svg" className="w-[12px] ml-2" />
                         </div>
 
-                        <div onClick={addFavorite} className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
+                        <div
+                            onClick={addFavorite}
+                            className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer"
+                        >
                             <img src={favorite ? "/images/fill-heart.svg" : "/images/heart.svg"} />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-[100px] py-6">
-                <div className="flex gap-[5px] h-[417px]">
+            <div className="max-w-7xl mx-auto px-4 md:px-[100px] py-6 relative">
+                
+                <div className="absolute top-4 left-4 right-4 flex justify-between z-20 md:hidden">
+                    <a href="/" className="bg-black/50 p-2 rounded-full">
+                        <img src="/images/arrow_left.svg" />
+                    </a>
+
+                    <div className="flex gap-2">
+                        <div className="bg-black/50 px-3 py-2 rounded-full text-white">
+                            {business.distnace} {t("pages.distance")}
+                        </div>
+
+                        <div
+                            onClick={addFavorite}
+                            className="bg-black/50 p-2 rounded-full"
+                        >
+                            <img src={favorite ? "/images/fill-heart.svg" : "/images/heart.svg"} />
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    className="md:hidden overflow-hidden h-[300px]"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    <div
+                        className="flex transition-transform duration-300"
+                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    >
+                        {images.map((img) => (
+                            <img
+                                key={img.id}
+                                src={img.url}
+                                className="w-full h-[300px] object-cover flex-shrink-0 rounded-2xl"
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="hidden md:flex gap-[5px] h-[417px]">
                     <div className="w-1/2">
                         {images[0] && (
                             <img src={images[0].url} className="w-full h-full object-cover rounded-2xl" />
@@ -163,7 +220,7 @@ export default function Business() {
                 <div className="flex gap-6 border-b border-[#2b2b2b]">
                     {navItems.map((item) => (
                         <div key={item.id} onClick={() => setSelectedNavId(item.id)} className="cursor-pointer py-2 relative">
-                            <h2 style={{ color: selectedNavId === item.id ? "#F94B00" : "#a7a7a7", }}>
+                            <h2 style={{ color: selectedNavId === item.id ? "#F94B00" : "#a7a7a7" }}>
                                 {item.name}
                             </h2>
 
