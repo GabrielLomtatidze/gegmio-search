@@ -63,7 +63,6 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
         <>
             <div className="w-[252px] h-[260px] border-[1px] border-[#2b2b2b] rounded-xl overflow-hidden relative">
 
-                {/* ❤️ HEART BUTTON (OUTSIDE LINK) */}
                 <button
                     type="button"
                     onClick={(e) => {
@@ -79,29 +78,22 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                     />
                 </button>
 
-                {/* 🔗 CLICKABLE CARD */}
                 <Link href={`/Business/${businessId}`}>
                     <div className="cursor-pointer">
 
-                        {/* IMAGE */}
                         <div className="w-full h-[180px] relative">
-                            <img
-                                src={image}
-                                alt=""
-                                className="w-full h-full object-cover"
-                            />
+                            <img src={image} alt="" className="w-full h-full object-cover" />
 
                             <div className="absolute inset-0 flex flex-col justify-between p-[10px]">
-                                <div className="inline-flex px-[12px] backdrop-blur-sm bg-black/50 rounded-2xl items-center gap-2 w-fit">
+                                <div className="inline-flex px-[12px] py-[8px] backdrop-blur-sm bg-black/50 rounded-2xl items-center gap-2 w-fit">
                                     <div className="w-[8px] h-[8px] bg-[#00d34d] rounded-full" />
-                                    <h3 className="text-white text-sm">Open now</h3>
+                                    <h3 className="text-white">{t("components.profile_open_now")}</h3>
                                 </div>
                             </div>
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
                         </div>
 
-                        {/* TEXT */}
                         <div className="p-[10px]">
                             <div className="w-full flex justify-between text-[14px]">
                                 <h3 className="text-[#a7a7a7]">
@@ -110,13 +102,9 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
 
                                 <div className="flex text-white">
                                     <span>
-                                        {distance} km
+                                        {distance} {t("components.distance")}
                                     </span>
-                                    <img
-                                        src="/images/map_pin.svg"
-                                        alt="map"
-                                        className="ml-[10px]"
-                                    />
+                                    <img src="/images/map_pin.svg" alt="map" className="ml-[10px]" />
                                 </div>
                             </div>
 
