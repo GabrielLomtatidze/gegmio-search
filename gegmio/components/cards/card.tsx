@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 import axios from "axios";
+import Link from "next/link";
 
 type Props = {
     businessId: string,
@@ -60,48 +61,75 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
 
     return (
         <>
-            <div className="w-[252px] h-[260px] border-[1px] border-[#2b2b2b] rounded-xl overflow-hidden">
-                <div className="w-full h-[180px] relative">
-                    <img src={image} alt="" className="w-full h-full object-cover" />
+            <div className="w-[252px] h-[260px] border-[1px] border-[#2b2b2b] rounded-xl overflow-hidden relative">
 
-                    <div className="absolute inset-0">
-                        <div className="flex flex-col justify-between h-full p-[10px]">
-                            <div className="flex justify-between">
-                                <div className="inline-flex px-[12px] backdrop-blur-sm bg-black/50 rounded-2xl items-center gap-2">
+                {/* ❤️ HEART BUTTON (OUTSIDE LINK) */}
+                <button
+                    type="button"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        addFavirite();
+                    }}
+                    className="absolute top-[10px] right-[10px] z-20 w-[32px] h-[32px] backdrop-blur-xl bg-black/40 rounded-full flex justify-center items-center"
+                >
+                    <img
+                        src={`/images/${heart ? "fill-heart.svg" : "heart.svg"}`}
+                        alt="heart"
+                        className="w-5 h-5"
+                    />
+                </button>
+
+                {/* 🔗 CLICKABLE CARD */}
+                <Link href={`/Business/${businessId}`}>
+                    <div className="cursor-pointer">
+
+                        {/* IMAGE */}
+                        <div className="w-full h-[180px] relative">
+                            <img
+                                src={image}
+                                alt=""
+                                className="w-full h-full object-cover"
+                            />
+
+                            <div className="absolute inset-0 flex flex-col justify-between p-[10px]">
+                                <div className="inline-flex px-[12px] backdrop-blur-sm bg-black/50 rounded-2xl items-center gap-2 w-fit">
                                     <div className="w-[8px] h-[8px] bg-[#00d34d] rounded-full" />
-                                    <h3 className="text-white">{t("components.profile_open_now")}</h3>
-                                </div>
-
-                                <div className="w-[32px] h-[32px] backdrop-blur-xl bg-black/40 rounded-full flex justify-center items-center cursor-pointer" onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    addFavirite();
-                                }}>
-                                    <img src={`/images/${heart ? "fill-heart.svg" : "heart.svg"}`} alt="heart" className="w-5 h-5 object-contain" />
+                                    <h3 className="text-white text-sm">Open now</h3>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-1 bg-black px-3 py-1 rounded-full w-fit z-10">
-                                <h4 className="text-white text-sm">4.6</h4>
-                                <img src="/images/start.svg" alt="star" className="w-4 h-4 object-contain" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
+                        </div>
+
+                        {/* TEXT */}
+                        <div className="p-[10px]">
+                            <div className="w-full flex justify-between text-[14px]">
+                                <h3 className="text-[#a7a7a7]">
+                                    {businessCategory}
+                                </h3>
+
+                                <div className="flex text-white">
+                                    <span>
+                                        {distance} km
+                                    </span>
+                                    <img
+                                        src="/images/map_pin.svg"
+                                        alt="map"
+                                        className="ml-[10px]"
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
-                    </div>
-                </div>
+                            <h1 className="text-[16px] text-white mt-[2px]">
+                                {title}
+                            </h1>
 
-                <div className="p-[10px]">
-                    <div className="w-full h-[18px] flex justify-between">
-                        <h3 className="text-[14px] text-[#a7a7a7]">{businessCategory}</h3>
-                        <div className="flex">
-                            <h3 className="text-[14px] text-white">{distance} {t("components.distance")} </h3>
-                            <img src="/images/map_pin.svg" alt="map icon" className="ml-[10px]" />
+                            <p className="text-[12px] text-[#a7a7a7] truncate">
+                                {address}
+                            </p>
                         </div>
                     </div>
-                    <h1 className="text-[16px] text-white mt-[2px]">{title}</h1>
-                    <p className="text-[12px] text-[#a7a7a7] truncate">{address}</p>
-                </div>
+                </Link>
             </div>
         </>
     )

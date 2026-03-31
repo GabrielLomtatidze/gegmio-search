@@ -137,20 +137,16 @@ export default function Main() {
                     const imageSource = item?.file?.url || "/images/start.svg";
 
                     return (
-                        <Link key={item.id} href={`/Business/${item.id}`}>
-
-                            <Card
-                                key={item.id}
-                                businessId={item.id}
-                                isFavorite={item.isFavorite}
-                                title={item.name}
-                                image={imageSource}
-                                address={item.addressName}
-                                businessCategory={item.businessCategory.name}
-                                distance={distance}
-                            />
-                        </Link>
-
+                        <Card
+                            key={item.id}
+                            businessId={item.id}
+                            isFavorite={item.isFavorite}
+                            title={item.name}
+                            image={imageSource}
+                            address={item.addressName}
+                            businessCategory={item.businessCategory.name}
+                            distance={distance}
+                        />
                     );
 
                 })}
@@ -159,3 +155,4 @@ export default function Main() {
         </>
     )
 }
+
