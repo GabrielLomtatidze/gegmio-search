@@ -108,7 +108,7 @@ export default function Main() {
 
                         <div className="hidden md:flex gap-2 text-[#a7a7a7]">
                             <select className="border border-[#2b2b2b] bg-[#0f0f0f] p-[10px] rounded-xl">
-                                <option value="">{t("pages.city")}</option>
+                                <option value="">{t("pages.cit")}</option>
                                 <option value="tbilisi">თბილისი</option>
                                 <option value="qutaisi">ქუთაისი</option>
                                 <option value="batumi">ბათუმი</option>
