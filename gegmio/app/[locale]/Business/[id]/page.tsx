@@ -12,6 +12,8 @@ import Details from "@/app/[locale]/layout/details";
 import { useBusinessStoreId } from "@/zustand/APIs/public/businessStoreId";
 import ErrorPage from "@/app/[locale]/page/404";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 
 
 export default function Business() {
@@ -20,9 +22,12 @@ export default function Business() {
     const params = useParams();
     const id = params?.id as string;
 
-    const { business, loading, favorite, getBusinessById, toggleFavorite, } = useBusinessStoreId();
+    const { business, loading, getBusinessById, toggleFavorite, } = useBusinessStoreId();
+    const { guessMode } = useAuthPositionStore();
 
     const [selectedNavId, setSelectedNavId] = useState<number>(0);
+    const [favorite, setfavorite] = useState<boolean>(false);
+    
 
     const navItems = [
         { id: 0, name: "მენიუ & სერვისები" },
@@ -41,6 +46,41 @@ export default function Business() {
             useBusinessStoreId.getState().reset();
         };
     }, []);
+
+    const addFavorite = async (): Promise<void> => {
+
+        const accessToken = await localStorage.getItem("accessToken");
+
+        try {
+
+            if (!guessMode) {
+
+                if (!favorite) {
+
+                    await axios.post(`https://bookitcrm.runasp.net/api/v1/favorites/${id}`, {}, {
+
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: `Bearer ${accessToken}`,
+                            "Accept-Language": "ka-GE",
+                        },
+                    });
+                } else {
+
+                    await axios.delete(`https://bookitcrm.runasp.net/api/v1/favorites/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                }
+                setfavorite(!favorite);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+    }
 
     if (loading)
         return (

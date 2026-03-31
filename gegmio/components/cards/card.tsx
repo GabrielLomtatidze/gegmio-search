@@ -1,6 +1,8 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
+import axios from "axios";
 
 type Props = {
     businessId: string,
@@ -16,7 +18,45 @@ type Props = {
 export default function Card({ businessId, isFavorite, title, image, address, businessCategory, distance }: Props) {
 
     const t = useTranslations();
-    const [checked, setChecked] = useState<boolean>(false);
+    const { guessMode } = useAuthPositionStore();
+
+    const [heart, setHeart] = useState<boolean>(isFavorite);
+
+    const addFavirite = async (): Promise<void> => {
+
+        const accessToken = await localStorage.getItem("accessToken");
+
+        try {
+            if (!guessMode) {
+
+                if (!heart) {
+
+                    await axios.post(`https://bookitcrm.runasp.net/api/v1/favorites/${businessId}`, {}, {
+
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: `Bearer ${accessToken}`,
+                            "Accept-Language": "ka-GE",
+                        },
+                    });
+                } else {
+
+                    await axios.delete(`https://bookitcrm.runasp.net/api/v1/favorites/${businessId}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+                }
+                setHeart(!heart);
+            }
+        } catch (error) {
+            console.log("save error");
+        }
+    }
+
+    useEffect(() => {
+        setHeart(isFavorite);
+    }, [isFavorite]);
 
     return (
         <>
@@ -32,8 +72,12 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                                     <h3 className="text-white">{t("components.profile_open_now")}</h3>
                                 </div>
 
-                                <div className="w-[32px] h-[32px] backdrop-blur-xl bg-black/40 rounded-full flex justify-center items-center cursor-pointer" onClick={() => setChecked(!checked)}>
-                                    <img src={`/images/${checked ? "fill-heart.svg" : "heart.svg"}`} alt="heart" className="w-5 h-5 object-contain" />
+                                <div className="w-[32px] h-[32px] backdrop-blur-xl bg-black/40 rounded-full flex justify-center items-center cursor-pointer" onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    addFavirite();
+                                }}>
+                                    <img src={`/images/${heart ? "fill-heart.svg" : "heart.svg"}`} alt="heart" className="w-5 h-5 object-contain" />
                                 </div>
                             </div>
 
