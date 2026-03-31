@@ -22,24 +22,23 @@ export default function Business() {
     const params = useParams();
     const id = params?.id as string;
 
-    const { business, loading, getBusinessById, toggleFavorite, } = useBusinessStoreId();
+    const { business, loading, getBusinessById } = useBusinessStoreId();
     const { guessMode } = useAuthPositionStore();
 
     const [selectedNavId, setSelectedNavId] = useState<number>(0);
-    const [favorite, setfavorite] = useState<boolean>(false);
-    
+    const [favorite, setFavorite] = useState(false);
 
     const navItems = [
-        { id: 0, name: "მენიუ & სერვისები" },
-        { id: 1, name: "შეფასებები" },
-        { id: 2, name: "დეტალები" },
+        { id: 0, name: t("pages.menu_service") },
+        { id: 1, name: t("pages.reviews") },
+        { id: 2, name: t("pages.details") },
     ];
 
     useEffect(() => {
         if (id) {
             getBusinessById(id);
         }
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         return () => {
@@ -47,52 +46,62 @@ export default function Business() {
         };
     }, []);
 
-    const addFavorite = async (): Promise<void> => {
+    useEffect(() => {
+        if (business) {
+            setFavorite(!!business.isFavorite);
+        }
+    }, [business]);
 
-        const accessToken = await localStorage.getItem("accessToken");
+    const addFavorite = async (): Promise<void> => {
+        const accessToken = localStorage.getItem("accessToken");
 
         try {
+            if (!guessMode && business) {
+                const isFav = favorite;
 
-            if (!guessMode) {
-
-                if (!favorite) {
-
-                    await axios.post(`https://bookitcrm.runasp.net/api/v1/favorites/${id}`, {}, {
-
-                        headers: {
-                            Accept: "application/json",
-                            Authorization: `Bearer ${accessToken}`,
-                            "Accept-Language": "ka-GE",
-                        },
-                    });
+                if (!isFav) {
+                    await axios.post(
+                        `https://bookitcrm.runasp.net/api/v1/favorites/${id}`,
+                        {},
+                        {
+                            headers: {
+                                Accept: "application/json",
+                                Authorization: `Bearer ${accessToken}`,
+                                "Accept-Language": "ka-GE",
+                            },
+                        }
+                    );
                 } else {
-
-                    await axios.delete(`https://bookitcrm.runasp.net/api/v1/favorites/${id}`, {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                        },
-                    });
+                    await axios.delete(
+                        `https://bookitcrm.runasp.net/api/v1/favorites/${id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                            },
+                        }
+                    );
                 }
-                setfavorite(!favorite);
+
+                setFavorite(!isFav);
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error);
         }
+    };
 
-    }
-
-    if (loading)
+    if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#0F0F0F]">
                 <Spinner color="#F94B00" />
             </div>
         );
+    }
 
-    if (!business) return (<ErrorPage />);
+    if (!business) return <ErrorPage />;
 
     const images = business.files || [];
     const rating = 3.5;
+
 
     return (
         <div className="bg-[#0F0F0F]">
@@ -111,11 +120,11 @@ export default function Business() {
 
                     <div className="flex items-center gap-3">
                         <div className="px-3 py-2 border border-[#2b2b2b] bg-[#141414] rounded-full flex items-center">
-                            <h4 className="font-bold">1.5 {t("pages.distance")}</h4>
+                            <h4 className="font-bold">{business.distnace} {t("pages.distance")}</h4>
                             <img src="/images/map_pin.svg" className="w-[12px] ml-2" />
                         </div>
 
-                        <div onClick={toggleFavorite} className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
+                        <div onClick={addFavorite} className="w-[42px] h-[42px] border border-[#2b2b2b] bg-[#141414] rounded-full flex justify-center items-center cursor-pointer">
                             <img src={favorite ? "/images/fill-heart.svg" : "/images/heart.svg"} />
                         </div>
                     </div>
