@@ -9,7 +9,7 @@ import { useRouter, usePathname } from "next/navigation";
 export default function Header() {
     const t = useTranslations();
     const { userInfo } = useUserStore();
-    const { setAuthenticated } = useAuthPositionStore();
+    const { setAuthenticated, isAuthenticated } = useAuthPositionStore();
 
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,8 +21,8 @@ export default function Header() {
 
     const logOut = (): void => {
         localStorage.removeItem("accessToken");
-        window.location.reload();
         setAuthenticated(false);
+        window.location.reload();
     };
 
     const currentLocale = pathname.split("/")[1] === "ka" ? "ka" : "en";
@@ -67,16 +67,20 @@ export default function Header() {
                         </button>
 
                         <div className="relative hidden md:block">
-                            <div
-                                className="px-[12px] py-[8px] border-[1px] border-[#2b2b2b] flex justify-center items-center rounded-xl gap-[8px] cursor-pointer"
-                                onClick={() => setOpenProfileModal(!openProfileModal)}
-                            >
-                                <div className="w-[28px] h-[28px] bg-[#242424] rounded-full flex justify-center items-center">
-                                    {userInitial}
-                                </div>
-                                <h3 className="font-bold">{userInfo?.firstName}</h3>
-                                <img src="/images/arrow_down.svg" alt="arrow_down" />
-                            </div>
+                            {isAuthenticated ?
+                                (<>
+                                    <div className="px-[12px] py-[8px] border-[1px] border-[#2b2b2b] flex justify-center items-center rounded-xl gap-[8px] cursor-pointer" onClick={() => setOpenProfileModal(!openProfileModal)} >
+                                        <div className="w-[28px] h-[28px] bg-[#242424] rounded-full flex justify-center items-center">
+                                            {userInitial}
+                                        </div>
+                                        <h3 className="font-bold">{userInfo?.firstName}</h3>
+                                        <img src="/images/arrow_down.svg" alt="arrow_down" />
+                                    </div>
+                                </>)
+                                :
+                                (<>
+                                    <Link href="/auth/registration">დარეგისტრირდი</Link>
+                                </>)}
 
                             {openProfileModal && (
                                 <div className="absolute top-full right-0 mt-2 w-[209px] h-[237px] bg-[#0F0F0F] p-[14px] border border-[#2b2b2b] rounded-xl shadow-lg z-50 transition-all duration-300">

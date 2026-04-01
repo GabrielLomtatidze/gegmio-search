@@ -22,51 +22,16 @@ export default function Home() {
   const params = useParams();
   const pathname = usePathname();
   const locale = params.locale;
-  const { setAuthenticated } = useAuthPositionStore();
+  const { guessMode } = useAuthPositionStore();
   const { fetchUserInfo } = useUserStore();
 
 
   useEffect(() => {
+
+    if (guessMode) return;
+    
     fetchUserInfo();
   }, []);
-
-
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-
-    if (!token) {
-      router.replace(`/${locale}/auth/login`);
-      setAuthenticated(false);
-    }
-
-    const requestInterceptor = axios.interceptors.request.use(
-      (config) => {
-        if (token) {
-          config.headers['Authorization'] = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
-
-    const responseInterceptor = axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response && error.response.status === 401) {
-          router.replace(`/${locale}/auth/login`);
-        }
-        return Promise.reject(error);
-      }
-    );
-
-    return () => {
-      axios.interceptors.request.eject(requestInterceptor);
-      axios.interceptors.response.eject(responseInterceptor);
-    };
-  }, [locale, router]);
 
 
   return (

@@ -18,7 +18,7 @@ export default function Otp() {
     const t = useTranslations();
     const { email, password, clear } = useAuthStore();
     const router = useRouter();
-    const { setAuthenticated} = useAuthPositionStore();
+    const { setAuthenticated, setGuessMode} = useAuthPositionStore();
 
     const [otp, setOtp] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
@@ -55,6 +55,7 @@ export default function Otp() {
             clear();
             
             setAuthenticated(true);
+            
             
             router.replace("/");
 
