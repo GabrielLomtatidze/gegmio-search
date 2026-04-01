@@ -5,6 +5,9 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { useState } from 'react';
 import { Eye, EyeOff } from "lucide-react";
+import { useEffect } from 'react';
+import { useUserStore } from '@/zustand/User/profileStore';
+import axios from 'axios';
 
 
 interface Errors {
@@ -16,6 +19,7 @@ interface Errors {
 export default function Profile() {
 
     const t = useTranslations();
+    const {userInfo} = useUserStore()
 
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
@@ -26,6 +30,61 @@ export default function Profile() {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<Errors>({ email: "", password: "", repeatPassword: "" });
+    const [timecounter, setTimeCounter] = useState<number>(30);
+    const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        if (isTimerActive && timecounter > 0) {
+            const interval = setInterval(() => {
+                setTimeCounter((pTime) => pTime - 1);
+            }, 1000);
+
+            return () => clearInterval(interval);
+        } else if (timecounter <= 0) {
+            setIsTimerActive(false);
+            setTimeCounter(30);
+        }
+    }, [isTimerActive, timecounter]);
+
+
+
+    const getCode = async () => {
+
+        try {
+            const accessToken: string | null = await localStorage.getItem("accessToken");
+
+            const newErrors: Errors = {
+                email: "",
+                password: "",
+                repeatPassword: "",
+            }
+
+            if (userInfo?.email === email) {
+                await axios.post(
+                    `https://bookitcrm.runasp.net/api/v1/account/password-reset?email=${(email)}`, null,
+                    {
+                        headers: {
+                            Accept: "*/*",
+                            "Accept-Language": "ka-GE",
+                            Authorization: `Bearer ${accessToken}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
+                setIsTimerActive(true);
+
+            } else {
+                newErrors.email = t("auth.errors.valid_email");
+            }
+            setErrors(newErrors);
+
+
+        } catch (error) {
+            console.log(error);
+        };
+    };
 
     return (
 
@@ -130,14 +189,26 @@ export default function Profile() {
                             </div>
                             <form className="flex flex-col gap-4 mt-[32px]" >
                                 <div>
-                                    <label className="text-sm text-gray-300 mb-1 block">{t("auth.email_label")}</label>
-                                    <input
-                                        placeholder="your@gmail.com"
-                                        className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                    {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
+                                    <label className="text-sm text-gray-300 mb-1 block">
+                                        {t("auth.email_label")}
+                                    </label>
+
+                                    <div className="relative">
+                                        <input
+                                            placeholder="your@gmail.com"
+                                            className="w-full h-[48px] rounded-xl text-white px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+
+                                        <button className="absolute right-2 top-1/2 -translate-y-1/2 px-[10px] py-[5px] text-sm bg-[#F94B00] text-white rounded-lg hover:opacity-90 transition cursor-pointer" >
+                                            Get Code
+                                        </button>
+                                    </div>
+
+                                    {errors.email && (
+                                        <span className="text-red-500 text-sm">{errors.email}</span>
+                                    )}
                                 </div>
 
                                 <div>
@@ -178,7 +249,7 @@ export default function Profile() {
                                     {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
                                 </div>
 
-                              
+
                                 <button type="submit" className="w-full h-[48px] mt-3 rounded-xl bg-[#F94B00] text-white font-medium cursor-pointer" disabled={loading}>
                                     {loading ? "დელოდე..." : t("auth.change_password")}
                                 </button>
