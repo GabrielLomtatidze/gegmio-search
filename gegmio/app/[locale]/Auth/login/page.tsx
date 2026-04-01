@@ -6,6 +6,7 @@ import axios from "axios";
 import { useTranslations } from "next-intl";
 import { useAuthPositionStore } from "@/zustand/User/userPositionStore";
 import { Spinner } from "@/components/ui/spinner";
+import Link from "next/link";
 
 interface Errors {
     email: string;
@@ -126,6 +127,14 @@ export default function Login() {
                 <button type="submit" className="w-full h-[52px] mt-3 rounded-xl bg-[#F94B00] flex items-center justify-center font-medium cursor-pointer" disabled={loading}>
                     {loading ? <Spinner /> : t("auth.login_button")}
                 </button>
+
+                <label className="w-full flex justify-center items-center gap-2 text-sm mt-2">
+                    <Link href="/auth/registration">
+                        <span className="text-[#F94B00] underline cursor-pointer">
+                            {t("auth.create_profile")}
+                        </span>
+                    </Link>
+                </label>
             </form>
         </div>
     );

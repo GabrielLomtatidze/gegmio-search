@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/zustand/User/authStore";
 import { redirect } from "next/navigation"
+import Link from "next/link";
+
 
 type Gender = {
   id: number;
@@ -94,7 +96,7 @@ export default function RegistrationPage() {
     else if (!onlyLettersEnter.test(lastName)) newErrors.lastName = t("auth.errors.only_letters");
     else if (lastName.length >= 50) newErrors.lastName = t("auth.errors.last_name_max_50");
 
-        if (!birthDate) {
+    if (!birthDate) {
       newErrors.age = t("auth.errors.age_required");
     } else {
       const today = new Date();
@@ -181,65 +183,69 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="w-[376px] h-[726px] p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white">
+    <div className="w-[400px] max-w-full p-6 rounded-2xl bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2B2B2B] shadow-2xl text-white overflow-auto">
       <h1 className="text-center text-[20px] font-semibold">
         {t("auth.create_profile")}
       </h1>
 
-      <p className="text-center text-sm text-gray-400 mt-1 mb-6">
+      <p className="text-center text-sm text-gray-400 mt-1 mb-5">
         {t("auth.subtitle")}
       </p>
 
       <form className="flex flex-col gap-4" onSubmit={sendUserData}>
 
-        <div>
-          <label className="text-sm mb-1 block">{t("auth.first_name")}</label>
-          <input
-            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm mb-1 block">{t("auth.first_name")}</label>
+            <input
+              className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+          </div>
+
+          <div>
+            <label className="text-sm mb-1 block">{t("auth.last_name")}</label>
+            <input
+              className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
+          </div>
         </div>
 
-        <div>
-          <label className="text-sm mb-1 block">{t("auth.last_name")}</label>
-          <input
-            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
-        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-sm mb-1 block">{t("auth.birth_date")}</label>
+            <input
+              type="date"
+              className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+              onChange={(e) => setBirthDay(e.target.value)}
+            />
+            {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
+          </div>
 
-        <div>
-          <label className="text-sm mb-1 block">{t("auth.birth_date")}</label>
-          <input
-            type="date"
-            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-            onChange={(e) => setBirthDay(e.target.value)}
-          />
-          {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
-        </div>
-
-        <div>
-          <label className="text-sm mb-1 block">{t("auth.gender")}</label>
-          <select
-            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-            onChange={(e) => setSelectedGenderId(Number(e.target.value))}
-          >
-            <option value="">{t("auth.select_gender")}</option>
-            {genderOptions.map((g) => (
-              <option key={g.id} value={g.id}>
-                {g.name}
-              </option>
-            ))}
-          </select>
-          {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
+          <div>
+            <label className="text-sm mb-1 block">{t("auth.gender")}</label>
+            <select
+              className="w-full h-[48px] rounded-xl px-4  bg-[rgba(20,20,20,0.75)] backdrop-blur-xl border border-[#2b2b2b] "
+              onChange={(e) => setSelectedGenderId(Number(e.target.value))}
+            >
+              <option value="">{t("auth.select_gender")}</option>
+              {genderOptions.map((g) => (
+                <option key={g.id} value={g.id} >
+                  {g.name}
+                </option>
+              ))}
+            </select>
+            {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
+          </div>
         </div>
 
         <div>
           <label className="text-sm mb-1 block">{t("auth.email_label")}</label>
           <input
-            className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+            className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
             onChange={(e) => setEmail(e.target.value)}
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
@@ -250,10 +256,14 @@ export default function RegistrationPage() {
           <div className="relative">
             <input
               type={showPass ? "text" : "password"}
-              className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+              className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="button" onClick={() => setShowPass(!showPass)} className="absolute right-4 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              onClick={() => setShowPass(!showPass)}
+              className="absolute right-4 top-1/2 -translate-y-1/2"
+            >
               {showPass ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
@@ -265,10 +275,14 @@ export default function RegistrationPage() {
           <div className="relative">
             <input
               type={showRepeatPass ? "text" : "password"}
-              className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
+              className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
               onChange={(e) => setRepeatPass(e.target.value)}
             />
-            <button type="button" onClick={() => setShowRepeatPass(!showRepeatPass)} className="absolute right-4 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              onClick={() => setShowRepeatPass(!showRepeatPass)}
+              className="absolute right-4 top-1/2 -translate-y-1/2"
+            >
               {showRepeatPass ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
@@ -276,7 +290,12 @@ export default function RegistrationPage() {
         </div>
 
         <label className="flex items-center gap-2 text-sm mt-2">
-          <input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} className="accent-[#F94B00]"/>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+            className="accent-[#F94B00]"
+          />
           {t("auth.agree")}{" "}
           <span className="text-[#F94B00] underline cursor-pointer">
             {t("auth.terms")}
@@ -284,9 +303,22 @@ export default function RegistrationPage() {
         </label>
         {errors.checkbox && <p className="text-red-500 text-sm">{errors.checkbox}</p>}
 
-        <button type="submit" disabled={loading} className="mt-3 h-[56px] rounded-xl bg-[#F94B00] font-medium" >
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-3 h-[52px] rounded-xl bg-[#F94B00] font-medium"
+        >
           {loading ? t("auth.loading") : t("auth.create_account")}
         </button>
+
+        <label className="w-full flex justify-center items-center gap-2 text-sm mt-2">
+          {t("auth.login_button")}
+          <Link href="/auth/login">
+            <span className="text-[#F94B00] underline cursor-pointer">
+              {t("auth.existing_account")}
+            </span>
+          </Link>
+        </label>
       </form>
     </div>
   );

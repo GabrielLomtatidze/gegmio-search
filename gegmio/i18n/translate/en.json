@@ -30,6 +30,7 @@
         "current_password": "Current password",
         "password_guideline": "For better security, use uppercase letters, numbers, and symbols.",
         "new_passowrd": "New password",
+        "existing_account": "Existing Account",
         "errors": {
             "only_letters": "Please enter letters only",
             "only_number": "Please enter numbers only",
