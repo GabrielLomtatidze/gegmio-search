@@ -199,7 +199,7 @@ export default function RegistrationPage() {
             <label className="text-sm mb-1 block">{t("auth.first_name")}</label>
             <input
               className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value.replace(/\s/g, ""))}
             />
             {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
           </div>
@@ -208,7 +208,7 @@ export default function RegistrationPage() {
             <label className="text-sm mb-1 block">{t("auth.last_name")}</label>
             <input
               className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e.target.value.replace(/\s/g, ""))}
             />
             {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
           </div>
@@ -246,7 +246,7 @@ export default function RegistrationPage() {
           <label className="text-sm mb-1 block">{t("auth.email_label")}</label>
           <input
             className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))}
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         </div>
@@ -257,7 +257,7 @@ export default function RegistrationPage() {
             <input
               type={showPass ? "text" : "password"}
               className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value.replace(/\s/g, ""))}
             />
             <button
               type="button"
@@ -276,7 +276,7 @@ export default function RegistrationPage() {
             <input
               type={showRepeatPass ? "text" : "password"}
               className="w-full h-[48px] rounded-xl px-4 bg-transparent border border-[#2b2b2b]"
-              onChange={(e) => setRepeatPass(e.target.value)}
+              onChange={(e) => setRepeatPass(e.target.value.replace(/\s/g, ""))}
             />
             <button
               type="button"

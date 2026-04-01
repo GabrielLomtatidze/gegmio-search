@@ -19,7 +19,7 @@ interface Errors {
 export default function Profile() {
 
     const t = useTranslations();
-    const {userInfo} = useUserStore()
+    const { userInfo } = useUserStore()
 
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
@@ -198,11 +198,11 @@ export default function Profile() {
                                             placeholder="your@gmail.com"
                                             className="w-full h-[48px] rounded-xl text-white px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
                                             value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))}
                                         />
 
-                                        <button className="absolute right-2 top-1/2 -translate-y-1/2 px-[10px] py-[5px] text-sm bg-[#F94B00] text-white rounded-lg hover:opacity-90 transition cursor-pointer" >
-                                            Get Code
+                                        <button className="absolute right-2 top-1/2 -translate-y-1/2 px-[10px] py-[5px] text-sm bg-[#F94B00] text-white rounded-lg hover:opacity-90 transition cursor-pointer" onClick={getCode}>
+                                            {t("pages.get_code")}
                                         </button>
                                     </div>
 

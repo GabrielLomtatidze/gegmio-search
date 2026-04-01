@@ -89,7 +89,7 @@ export default function Login() {
                         placeholder="your@gmail.com"
                         className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))}
                     />
                     {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                 </div>
@@ -105,7 +105,7 @@ export default function Login() {
                             placeholder="********"
                             className="w-full h-[52px] rounded-xl px-4 bg-transparent border border-[#2b2b2b] focus:border-[#F94B00] focus:outline-none transition"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value.replace(/\s/g, ""))}
                         />
                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white" >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

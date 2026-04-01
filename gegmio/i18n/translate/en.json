@@ -83,7 +83,8 @@
         "result": "Result",
         "main_page": "Return to Main Page",
         "error_message": "Sorry for the inconvenience, the page was not found",
-        "menu_service": "Menu & Services"
+        "menu_service": "Menu & Services",
+        "get_code": "Get code"
     },
     "layout": {
         "working_hours": "Working Hours",
