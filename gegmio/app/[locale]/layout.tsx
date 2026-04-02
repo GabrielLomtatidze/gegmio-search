@@ -4,20 +4,18 @@ import { NextIntlClientProvider } from "next-intl";
 
 export const metadata: Metadata = {
   title: {
-    default: "Gegmio | დაჯავშნა და ჭამა მარტივად",
+    default: "Gegmio",
     template: "%s | Gegmio",
   },
-  description:
-    "Gegmio არის პლატფორმა სადაც შეგიძლიათ მარტივად მოძებნოთ რესტორნები, ბარბერები, სერვისები, დაჯავშნოთ და დაგეგმოთ.",
-
+  description: "აღმოაჩინე საუკეთესო ადგილები საქართველოში — რესტორნები, ბარბერები, სპა, სერვისები და სხვა.",
   keywords: [
-    "დაჯავშნა",
-    "ჭამა",
-    "რესტორნები",
-    "მაგიდის დაჯავშნა",
-    "restaurant booking Georgia",
-    "eat in Georgia",
-    "reserve table",
+    "რესტორნები თბილისში",
+    "ბარბერი თბილისში",
+    "სპა თბილისში",
+    "სილამაზის სალონი",
+    "კოვორქინგი თბილისში",
+    "მანქანის რეცხვა",
+    "სტომატოლოგი თბილისში",
     "Gegmio",
   ],
 
@@ -26,8 +24,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title: "Gegmio | დაჯავშნე და ისიამოვნე ჭამით",
-    description:
-      "იპოვე საუკეთესო რესტორნები და დაჯავშნე მაგიდა მარტივად. Gegmio — შენი ჭამის პარტნიორი.",
+    description: "იპოვე საუკეთესო რესტორნები და დაჯავშნე მაგიდა მარტივად. Gegmio — შენი ჭამის პარტნიორი.",
     url: "https://gegmio.com",
     siteName: "Gegmio",
     locale: "ka_GE",
@@ -44,9 +41,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Gegmio | დაჯავშნა და ჭამა",
+    title: "Gegmio",
     description:
-      "დაჯავშნე რესტორანი სწრაფად და მარტივად საქართველოში.",
+      "აღმოაჩინე ადგილები საქართველოში",
     images: ["/images/logo.svg"],
   },
 
@@ -71,7 +68,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale}>
-            {children}
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
