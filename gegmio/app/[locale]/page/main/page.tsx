@@ -141,7 +141,6 @@ export default function Main() {
                     ))
                 ) : businessStore?.length > 0 ? (
                     businessStore.map((item: any) => {
-                        const distance = item.distance != null ? item.distance.toFixed(1) : null;
                         const imageSource = item?.file?.url || "/images/start.svg";
 
                         return (
@@ -153,7 +152,7 @@ export default function Main() {
                                 image={imageSource}
                                 address={item.addressName}
                                 businessCategory={item.businessCategory.name}
-                                distance={distance}
+                                distance={item.distnace.toFixed(2)}
                             />
                         );
                     })

@@ -104,9 +104,9 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
 
                                 <div className="flex text-white">
                                     <span>
-                                        {distance} {t("components.distance")}
+                                        {distance}<span className="ml-[1px]">{t("components.distance")}</span>
                                     </span>
-                                    <img src="/images/map_pin.svg" alt="map" className="ml-[10px]" />
+                                    <img src="/images/map_pin.svg" alt="map" className="ml-[5px]" />
                                 </div>
                             </div>
 
