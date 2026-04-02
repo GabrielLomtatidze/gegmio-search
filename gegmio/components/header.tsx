@@ -9,7 +9,8 @@ import { useRouter, usePathname } from "next/navigation";
 export default function Header() {
     const t = useTranslations();
     const { userInfo } = useUserStore();
-    const { setAuthenticated, isAuthenticated } = useAuthPositionStore();
+    const setAuthenticated = useAuthPositionStore((state) => state.setAuthenticated);
+    const isAuthenticated = useAuthPositionStore((state) => state.isAuthenticated);
 
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

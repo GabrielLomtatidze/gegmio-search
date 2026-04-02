@@ -27,7 +27,10 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
 
         const accessToken = await localStorage.getItem("accessToken");
 
+        if(!accessToken) return;
+
         try {
+            
             if (!guessMode) {
 
                 if (!heart) {
@@ -51,7 +54,6 @@ export default function Card({ businessId, isFavorite, title, image, address, bu
                 setHeart(!heart);
             }
         } catch (error) {
-            console.log("save error");
         }
     }
 
