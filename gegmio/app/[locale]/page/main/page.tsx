@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import debounce from "lodash.debounce";
 import Link from "next/link";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
+import CardSkeleton from "@/components/skeletons/cardSkeleton";
+
 
 // wogofaj349@fftube.com
 
@@ -133,24 +135,32 @@ export default function Main() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 mt-6 mb-6 max-w-7xl mx-auto">
-                {businessStore?.map((item: any) => {
-                    const distance = item.distance != null ? item.distance.toFixed(1) : null;
-                    const imageSource = item?.file?.url || "/images/start.svg";
+                {loading ? (
+                    Array.from({ length: 8 }).map((_, i) => (
+                        <CardSkeleton key={i} />
+                    ))
+                ) : businessStore?.length > 0 ? (
+                    businessStore.map((item: any) => {
+                        const distance = item.distance != null ? item.distance.toFixed(1) : null;
+                        const imageSource = item?.file?.url || "/images/start.svg";
 
-                    return (
-                        <Card
-                            key={item.id}
-                            businessId={item.id}
-                            isFavorite={item.isFavorite}
-                            title={item.name}
-                            image={imageSource}
-                            address={item.addressName}
-                            businessCategory={item.businessCategory.name}
-                            distance={distance}
-                        />
-                    );
+                        return (
+                            <Card
+                                key={item.id}
+                                businessId={item.id}
+                                isFavorite={item.isFavorite}
+                                title={item.name}
+                                image={imageSource}
+                                address={item.addressName}
+                                businessCategory={item.businessCategory.name}
+                                distance={distance}
+                            />
+                        );
+                    })
+                ) : (
+                    <></>
+                )}
 
-                })}
             </div>
 
         </>
