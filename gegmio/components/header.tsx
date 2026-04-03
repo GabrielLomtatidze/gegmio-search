@@ -97,12 +97,12 @@ export default function Header() {
                                     <div className="my-3 h-px bg-[#2b2b2b]" />
 
                                     <div className="flex flex-col gap-2">
-                                        <Link href="/page/profile">
-                                            <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
+                                        {/* <Link href="/page/profile"> */}
+                                            <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer" onClick={() => router.push("/page/profile")}>
                                                 <img src="/images/grey_profile.svg" alt="profile" />
                                                 <span className="text-[#a7a7a7] text-sm font-bold">{t("components.my_profile")}</span>
                                             </button>
-                                        </Link>
+                                        {/* </Link> */}
 
                                         <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
                                             <img src="/images/grey_heart.svg" alt="heart" />
