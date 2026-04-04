@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { useAuthPositionStore } from './userPositionStore';
 
 type File = {
     id: number;
@@ -36,17 +37,19 @@ type UserStore = {
     fetchUserInfo: () => Promise<void>;
 };
 
+const isAuthenticated = useAuthPositionStore.getState().isAuthenticated;
+
 export const useUserStore = create<UserStore>((set, get) => ({
     userInfo: null,
     fetched: false,
 
     fetchUserInfo: async () => {
-        
+
         if (get().fetched) return;
 
         try {
             const accessToken = localStorage.getItem("accessToken");
-            if (!accessToken) return;
+            if (!isAuthenticated) return;
 
             const response = await axios.get(
                 'https://bookitcrm.runasp.net/api/v1/account/profile',
