@@ -104,7 +104,7 @@ export default function Header() {
                                             </button>
                                         {/* </Link> */}
 
-                                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer">
+                                        <button className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#1A1A1A] transition cursor-pointer"  onClick={() => router.push("/page/favorite")}>
                                             <img src="/images/grey_heart.svg" alt="heart" />
                                             <span className="text-[#a7a7a7] text-sm font-bold">{t("components.favorites")}</span>
                                         </button>

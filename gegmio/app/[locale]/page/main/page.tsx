@@ -4,7 +4,6 @@ import { useEffect, useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import debounce from "lodash.debounce";
-import Link from "next/link";
 import { useBusinessStore } from "@/zustand/APIs/public/businessStore";
 import CardSkeleton from "@/components/skeletons/cardSkeleton";
 

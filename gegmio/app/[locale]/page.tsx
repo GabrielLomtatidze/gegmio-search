@@ -27,22 +27,13 @@ export default function Home() {
     fetchUserInfo();
   }, []);
 
+  console.log(isAuthenticated)
 
   return (
     <div className="bg-[#0F0F0F] min-h-screen">
       <Header />
-
-      {pathname === `/${locale}/page/privacypolicy` ? (
-        <PrivacyPolicy />
-      ) : (
-        <>
           <Main />
-        </>
-      )}
-
       < Footer />
     </div>
-
-
   );
 }
